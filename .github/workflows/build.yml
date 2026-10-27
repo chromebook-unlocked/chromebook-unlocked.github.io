@@ -1,0 +1,69 @@
+name: Build and Deploy (Legacy - Use Manual Update Instead)
+
+on:
+  workflow_dispatch:
+  # Automatic triggers disabled - use manual-update.yml instead
+  # push:
+  #   branches:
+  #     - main
+
+# Only one Pages deployment at a time across all deploying workflows
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build
+
+      # 🧹 Copy files with cleanup for data folder
+      - name: Copy game, data, asset folders, and static files
+        run: |
+          mkdir -p dist
+          cp -r games dist/games
+          cp -r assets dist/assets
+          cp -r important-pages dist/important-pages
+
+          # Use rsync so dist/data matches repo/data exactly (deletes removed files)
+          rsync -av --delete data/ dist/data/
+
+          # Copy static files
+          cp index.html dist/index.html
+          cp *.html dist/
+          cp ads.txt dist/ads.txt
+          cp sitemap.xml dist/sitemap.xml
+          cp robots.txt dist/robots.txt
+          cp google0d95473435a7c986.html dist/google0d95473435a7c986.html
+          cp .nojekyll dist/.nojekyll
+
+      # 🚀 Deploy to GitHub Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
