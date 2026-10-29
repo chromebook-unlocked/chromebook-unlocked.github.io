@@ -1,25 +1,9 @@
-const { generateGameCard, generateHorizontalAd } = require('./cardGenerator');
-
-// Horizontal ad configuration
-// Insert a full-width horizontal ad every 2 desktop rows (12 games at 6 columns)
-const COLS_PER_ROW = 6;
-const ROWS_PER_AD = 2;
-const AD_INTERVAL = COLS_PER_ROW * ROWS_PER_AD; // 18
-
-/**
- * Check if a horizontal ad should be inserted after a given game index
- * @param {number} gameIndex - The 0-indexed position in the game list
- * @returns {boolean} Whether an ad should be inserted after this game
- */
-function shouldInsertAdAfter(gameIndex) {
-  return (gameIndex + 1) % AD_INTERVAL === 0;
-}
+const { generateGameCard } = require('./cardGenerator');
 const { generateIndexMetaTags, generateIndexStructuredData } = require('../utils/seoBuilder');
-const { generateAnalyticsScript, generateConsentModeScript } = require('../utils/analyticsEnhanced');
 const { escapeHtml, escapeHtmlAttr } = require('../utils/htmlEscape');
+const { generateGoogleTag } = require('../utils/analytics');
 const { getThumbPath } = require('../utils/assetManager');
-const { INITIAL_ROWS, ROWS_PER_LOAD, SCROLL_THRESHOLD, EAGER_LOAD_CARDS } = require('../utils/constants');
-const { generateAdNetworkHeadHints, generateAdNetworkHeadScript, generateHeaderBannerAd, generateBottomLeaderboardAd } = require('../utils/adProviders');
+const { INITIAL_ROWS, ROWS_PER_LOAD, SCROLL_THRESHOLD, GAME_FRAME_SANDBOX, SITE_HOST } = require('../utils/constants');
 
 // Category to icon mapping (kept for sidebar)
 const categoryIcons = {
@@ -98,10 +82,9 @@ function shuffleArray(array, seed) {
  * @param {string} mainStyles - CSS content string to embed in <style> tag
  * @param {string} clientJS - JavaScript content string to embed in <script> tag
  * @param {string} gamesDir - Optional path to games directory (for asset resolution)
- * @param {boolean} adsEnabled - Whether ads are enabled
  * @returns {string} Complete HTML document
  */
-function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '.', adsEnabled = true, botVerificationEnabled = true) {
+function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '.') {
   // Generate sidebar categories - sorted by game count (largest first)
   // Filter out categories with less than 2 games, and exclude special categories
   const sidebarCategories = Object.keys(categories)
@@ -162,16 +145,9 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
     .slice(0, 30)
     .map(g => g.folder);
 
-  // Generate initial game cards HTML with horizontal ads every 2 desktop rows
-  let adCount = 0;
   let initialCardsHTML = '';
   initialGames.forEach((game, idx) => {
     initialCardsHTML += generateGameCard(game, idx, gamesDir, true);
-    // Check if we should insert a horizontal ad after this game
-    if (shouldInsertAdAfter(idx)) {
-      initialCardsHTML += generateHorizontalAd(adCount, adsEnabled);
-      adCount++;
-    }
   });
 
   // Get SEO meta tags and structured data
@@ -186,12 +162,9 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  ${metaTags}
+  ${generateGoogleTag()}
 
-  <!-- Resource Hints for Performance -->
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  ${generateAdNetworkHeadHints(adsEnabled)}
+  ${metaTags}
 
   <!-- Optimize Google Fonts loading -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap">
@@ -207,22 +180,6 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
       window.location.replace('/' + window.location.hash);
     }
   </script>
-
-  ${botVerificationEnabled ? `<!-- Cloudflare Turnstile verification gate (must load before ads) -->
-  <script src="assets/bot-detector.js"></script>` : ''}
-
-  ${generateConsentModeScript()}
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QZLTDX504"></script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-4QZLTDX504', { send_page_view: false });
-  </script>
-
-  ${generateAdNetworkHeadScript(adsEnabled)}
-
-  ${generateAnalyticsScript()}
 
   <!-- Structured Data for Search Engines -->
   ${structuredData}
@@ -260,8 +217,6 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
       </div>
     </header>
 
-    ${generateHeaderBannerAd(adsEnabled)}
-
     <div class="content-wrapper" id="main-content">
       <div id="controls">
         <button id="backBtn" onclick="closeGame()" aria-label="Go back to game list">← Back</button>
@@ -277,7 +232,7 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
             <h2 id="startName"></h2>
             <button id="startButton" onclick="startGame()">▶ Play</button>
           </div>
-          <iframe id="gameFrame" src="" scrolling="no"></iframe>
+          <iframe id="gameFrame" src="" scrolling="no" sandbox="${GAME_FRAME_SANDBOX}"></iframe>
         </div>
       </div>
 
@@ -304,13 +259,11 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
         <p>Looking for games to play on a school Chromebook? Use the search box to find a title, or open the alphabetical directory above to browse all available games. Games launch in your browser without an app download.</p>
       </section>
 
-      ${generateBottomLeaderboardAd(adsEnabled)}
-
       <footer id="siteFooter">
         <div class="footer-content">
           <div class="footer-brand">
             <h3>Chromebook Unlocked Games</h3>
-            <span class="footer-url">chromebookunlocked.github.io</span>
+            <span class="footer-url">${SITE_HOST}</span>
           </div>
           <div class="footer-links">
             <a href="/important-pages/privacy-policy.html">Privacy Policy</a>
@@ -333,29 +286,12 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
     window.__renderedCount = ${initialGameCount};
     window.__rowsPerLoad = ${ROWS_PER_LOAD};
     window.__scrollThreshold = ${SCROLL_THRESHOLD};
-    // Horizontal ad configuration (every 2 desktop rows = 12 games)
-    window.__adInterval = ${AD_INTERVAL};
-    window.__adCount = ${adCount};
     // Newly Added games (folders list)
     window.__newlyAddedFolders = ${JSON.stringify(newlyAddedFolders)};
-    // Ads toggle flag
-    window.__adsEnabled = ${adsEnabled};
   </script>
 
   <script>
     ${clientJS}
-  </script>
-
-  <!-- Track Homepage View -->
-  <script>
-    // Track the homepage visit with enhanced analytics
-    if (typeof trackEnhancedPageView !== 'undefined') {
-      trackEnhancedPageView('homepage', 'Home', {
-        total_games: ${games.length},
-        categories_count: ${Object.keys(categories).length}
-      });
-    }
-
   </script>
 
   <!-- Cookie Consent Banner - Load asynchronously -->

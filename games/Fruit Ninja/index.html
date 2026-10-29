@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-  <base href="https://cdn.jsdelivr.net/gh/genizy/UGS-Assets@main/fruit%20ninja/">
+  <base href="https://cdn.jsdelivr.net/gh/genizy/UGS-Assets@a85492767f2d2682b84e34f2db377b4b3299b09d/fruit%20ninja/">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -17,7 +17,18 @@
 
   <link rel="manifest" href="./manifest.json" />
 
-  <script src=poki-sdk.js></script>
+  <script>
+/* Ad SDK removed: no-op stand-in so the game starts without ads. */
+window.PokiSDK = new Proxy({}, { get: function (t, k) {
+  if (typeof k !== 'string' || k === 'then') return undefined;
+  if (k === 'rewardedBreak') return function () { return Promise.resolve(false); };
+  if (k === 'isAdBlocked') return function () { return false; };
+  if (k === 'getURLParam') return function () { return ''; };
+  if (k === 'getLanguage') return function () { return 'en'; };
+  if (k === 'shareableURL') return function () { return Promise.resolve(location.href); };
+  return function () { return Promise.resolve(); };
+} });
+</script>
 
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -117,14 +128,7 @@
 
   <noscript>Please enable javascript to continue using this application.</noscript>
 
-  <!-- <script async
-        data-ad-client="ca-pub-6934234812187351"
-        data-ad-frequency-hint= "30s"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
-    </script>
-    <script>window.adsbygoogle = window.adsbygoogle || [];
-        const adBreak =  adConfig = function(o) {adsbygoogle.push(o);}
-    </script> -->
+  
   <!-- installs the serviceWorker -->
   <!-- <script>
       if ('serviceWorker' in navigator) {

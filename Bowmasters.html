@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D02VL7XL64"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-D02VL7XL64');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,10 +26,10 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="game">
-  <meta property="og:url" content="https://chromebookunlocked.github.io/Bowmasters.html">
+  <meta property="og:url" content="https://chromebook-unlocked.github.io/Bowmasters.html">
   <meta property="og:title" content="Bowmasters Unblocked - Play Online Free | Chromebook Unlocked Games">
   <meta property="og:description" content="Play Bowmasters online in your browser. Explore this action, sports, 2 player game on Chromebook or desktop, then browse more free games on Chromebook Unlocked Games.">
-  <meta property="og:image" content="https://chromebookunlocked.github.io/games/Bowmasters/thumbnail.webp">
+  <meta property="og:image" content="https://chromebook-unlocked.github.io/games/Bowmasters/thumbnail.webp">
   <meta property="og:image:alt" content="Bowmasters Unblocked - Play Online Free">
   <meta property="og:image:width" content="300">
   <meta property="og:image:height" content="300">
@@ -28,10 +38,10 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:url" content="https://chromebookunlocked.github.io/Bowmasters.html">
+  <meta name="twitter:url" content="https://chromebook-unlocked.github.io/Bowmasters.html">
   <meta name="twitter:title" content="Bowmasters Unblocked - Play Online Free | Chromebook Unlocked Games">
   <meta name="twitter:description" content="Play Bowmasters online in your browser. Explore this action, sports, 2 player game on Chromebook or desktop, then browse more free games on Chromebook Unlocked Games.">
-  <meta name="twitter:image" content="https://chromebookunlocked.github.io/games/Bowmasters/thumbnail.webp">
+  <meta name="twitter:image" content="https://chromebook-unlocked.github.io/games/Bowmasters/thumbnail.webp">
   <meta name="twitter:image:alt" content="Bowmasters Unblocked - Play Online Free">
 
   <!-- Game-specific meta -->
@@ -46,250 +56,9 @@
 
   <!-- Additional SEO -->
   <meta name="theme-color" content="#ff66ff">
-  <link rel="canonical" href="https://chromebookunlocked.github.io/Bowmasters.html">
+  <link rel="canonical" href="https://chromebook-unlocked.github.io/Bowmasters.html">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- Resource Hints for Performance -->
-  <meta name="google-adsense-account" content="ca-pub-1033412505744705">
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
-  <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net">
-
-  <!-- Cloudflare Turnstile verification gate (must load before ads) -->
-  <script src="assets/bot-detector.js"></script>
-
-  <!-- Google Consent Mode v2: default denied, restore saved choice -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    (function(){
-      var saved = null;
-      try {
-        var m = ('; ' + document.cookie).split('; cookieConsent=');
-        if (m.length === 2) saved = JSON.parse(decodeURIComponent(m.pop().split(';').shift()));
-      } catch (e) {}
-      var analytics = saved ? saved.analytics === true : false;
-      var marketing = saved ? saved.marketing === true : false;
-      gtag('consent', 'default', {
-        analytics_storage: analytics ? 'granted' : 'denied',
-        ad_storage: marketing ? 'granted' : 'denied',
-        ad_user_data: marketing ? 'granted' : 'denied',
-        ad_personalization: marketing ? 'granted' : 'denied',
-        functionality_storage: 'granted',
-        security_storage: 'granted',
-        wait_for_update: saved ? 0 : 500
-      });
-    })();
-  </script>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QZLTDX504"></script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-4QZLTDX504', { send_page_view: false });
-  </script>
-
-  <script>
-  (function () {
-    'use strict';
-
-    var SLOT_SELECTOR = 'ins.adsbygoogle[data-ad-client][data-ad-slot]';
-    var FILL_TIMEOUT_MS = 18000;
-    var scheduledSlots = typeof WeakSet === 'function' ? new WeakSet() : null;
-    var trackedSlots = [];
-    var adsenseScriptStarted = false;
-
-    window.__activeAdProvider = 'adsense';
-
-    window.__adsReady = function (callback) {
-      if (typeof callback !== 'function') return;
-      var detector = window.botDetector;
-      if (detector && detector.shouldBlockAds && detector.shouldBlockAds()) {
-        if (detector.onVerified) detector.onVerified(callback);
-        return;
-      }
-      callback();
-    };
-
-    window.__loadAdSenseScript = function () {
-      if (adsenseScriptStarted || document.querySelector('script[data-adsense-loader]')) return;
-      adsenseScriptStarted = true;
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1033412505744705';
-      script.crossOrigin = 'anonymous';
-      script.setAttribute('data-adsense-loader', 'true');
-      // Use Google's policy-compliant native anchor instead of a custom
-      // floating display unit. Google owns sizing, dismissal, and frequency.
-      script.setAttribute('data-overlays', 'bottom');
-      script.addEventListener('error', function () {
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', 'ad_network_error', {
-            event_category: 'ads',
-            ad_provider: 'adsense'
-          });
-        }
-      });
-      document.head.appendChild(script);
-    };
-
-    // The connection is warmed by head hints, but no Google ad code or Auto
-    // Ads request starts until Turnstile has verified the session.
-    window.__adsReady(window.__loadAdSenseScript);
-
-    function emitFillResult(ad, state) {
-      if (ad.getAttribute('data-ad-fill-reported') === state) return;
-      ad.setAttribute('data-ad-fill-reported', state);
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'ad_fill_result', {
-          event_category: 'ads',
-          ad_provider: 'adsense',
-          ad_slot: ad.getAttribute('data-ad-slot') || '',
-          ad_placement: ad.getAttribute('data-ad-placement') || '',
-          fill_state: state
-        });
-      }
-    }
-
-    function creativeIsPresent(ad) {
-      var status = ad.getAttribute('data-ad-status');
-      return status === 'filled' || !!ad.querySelector('iframe, img, video, object, embed');
-    }
-
-    function trackFill(ad) {
-      if (ad.getAttribute('data-ad-fill-tracked') === 'true') return;
-      ad.setAttribute('data-ad-fill-tracked', 'true');
-      ad.setAttribute('data-ad-fill-state', 'pending');
-      trackedSlots.push(ad);
-
-      var observer = null;
-      var finished = false;
-      function finish(state) {
-        if (finished) return;
-        finished = true;
-        ad.setAttribute('data-ad-fill-state', state);
-        if (observer) observer.disconnect();
-        emitFillResult(ad, state);
-      }
-      function inspect() {
-        if (creativeIsPresent(ad)) finish('filled');
-        else if (ad.getAttribute('data-ad-status') === 'unfilled') finish('empty');
-      }
-
-      if (typeof MutationObserver === 'function') {
-        observer = new MutationObserver(inspect);
-        observer.observe(ad, { attributes: true, childList: true, subtree: true });
-      }
-      window.setTimeout(function () {
-        if (!finished) finish(creativeIsPresent(ad) ? 'filled' : 'empty');
-      }, FILL_TIMEOUT_MS);
-      inspect();
-    }
-
-    window.__requestAdSenseSlot = function (ad) {
-      if (!ad || ad.getAttribute('data-ad-requested') === 'true' || ad.getAttribute('data-ad-pending') === 'true') return;
-      ad.setAttribute('data-ad-pending', 'true');
-      window.__adsReady(function () {
-        if (ad.getAttribute('data-ad-requested') === 'true') return;
-        ad.removeAttribute('data-ad-pending');
-        ad.setAttribute('data-ad-requested', 'true');
-        trackFill(ad);
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (error) {
-          ad.setAttribute('data-ad-fill-state', 'empty');
-          emitFillResult(ad, 'empty');
-        }
-      });
-    };
-
-    function scheduleSlot(ad) {
-      if (!ad || (scheduledSlots && scheduledSlots.has(ad))) return;
-      if (scheduledSlots) scheduledSlots.add(ad);
-
-      var start = function () {
-        var request = function () { window.__requestAdSenseSlot(ad); };
-        if (ad.getAttribute('data-ad-lazy') === 'true' && 'IntersectionObserver' in window) {
-          var lazyObserver = new IntersectionObserver(function (entries) {
-            if (entries[0] && entries[0].isIntersecting) {
-              lazyObserver.disconnect();
-              request();
-            }
-          }, { rootMargin: '600px 0px' });
-          lazyObserver.observe(ad);
-        } else if (ad.getAttribute('data-ad-idle') === 'true' && 'requestIdleCallback' in window) {
-          window.requestIdleCallback(request, { timeout: 2000 });
-        } else {
-          request();
-        }
-      };
-
-      var media = ad.getAttribute('data-ad-media');
-      if (media && window.matchMedia) {
-        var query = window.matchMedia(media);
-        if (!query.matches) {
-          var onChange = function (event) {
-            if (!event.matches) return;
-            if (query.removeEventListener) query.removeEventListener('change', onChange);
-            else if (query.removeListener) query.removeListener(onChange);
-            start();
-          };
-          if (query.addEventListener) query.addEventListener('change', onChange);
-          else if (query.addListener) query.addListener(onChange);
-          return;
-        }
-      }
-      start();
-    }
-
-    window.__initAdSenseSlots = function (root) {
-      var scope = root || document;
-      if (scope.matches && scope.matches(SLOT_SELECTOR)) scheduleSlot(scope);
-      if (!scope.querySelectorAll) return;
-      var slots = scope.querySelectorAll(SLOT_SELECTOR);
-      for (var i = 0; i < slots.length; i += 1) scheduleSlot(slots[i]);
-    };
-
-    window.__getAdFillStatus = function () {
-      return {
-        activeProvider: 'adsense',
-        adsense: trackedSlots.map(function (ad) {
-          return {
-            slot: ad.getAttribute('data-ad-slot') || '',
-            placement: ad.getAttribute('data-ad-placement') || '',
-            state: ad.getAttribute('data-ad-fill-state') || 'pending'
-          };
-        })
-      };
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () { window.__initAdSenseSlots(document); });
-    } else {
-      window.__initAdSenseSlots(document);
-    }
-  })();
-  </script>
-
-
-<script>
-  // One explicit page_view per generated page. GA owns its own session and
-  // user identifiers, so the site does not create parallel tracking IDs.
-  (function() {
-    function trackEnhancedPageView(pageType, pageName, additionalParams) {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-          page_type: pageType,
-          page_name: pageName,
-          ...additionalParams
-        });
-      }
-    }
-
-    window.trackEnhancedPageView = trackEnhancedPageView;
-  })();
-</script>
-
 
   <!-- Google Fonts (async, non-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -299,58 +68,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap"></noscript>
 
   <style>
-    /* Header AdSense banner.
-   The site <header> is position:fixed, so this banner (the first in-flow
-   element) must be pushed down by the header's height or it renders behind
-   it. The game-container normally reserves that space via top padding, so
-   when the banner is present we hand that job to the banner instead. */
-.header-banner-ad {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90px;
-  padding: 8px 0;
-  margin-top: clamp(48px, 6vw, 64px);
-}
-body:has(.header-banner-ad) .game-container {
-  padding-top: var(--spacing-xs);
-}
-body.has-header-ad .game-container {
-  padding-top: var(--spacing-xs);
-}
-.header-banner-ad > ins.adsbygoogle {
-  width: 100%;
-  max-width: 970px;
-  margin: 0 auto;
-}
-@media (max-width: 768px) {
-  .header-banner-ad {
-    min-height: 50px;
-  }
-}
-
-/* Bottom leaderboard ad sits inline above the footer. */
-.bottom-leaderboard-ad {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90px;
-  padding: 16px 0;
-}
-.bottom-leaderboard-ad > ins.adsbygoogle {
-  width: 100%;
-  max-width: 970px;
-  margin: 0 auto;
-}
-@media (max-width: 768px) {
-  .bottom-leaderboard-ad {
-    min-height: 50px;
-  }
-}
-
-/* ============================================================================
+    /* ============================================================================
    CHROMEBOOK UNLOCKED GAMES - MODERN GAME PAGE STYLES
    Version: 2.1.0
    Description: Modern, user-friendly design for game pages
@@ -527,49 +245,6 @@ header {
   z-index: 1;
   width: 100%;
   max-width: 100vw;
-}
-
-/* ============================================================================
-   VERTICAL AD SLOTS - Flanking the game viewer
-============================================================================ */
-
-/* Pillar must fit a standard unit: 160x600 by default, 300x600 on wide
-   screens. Fixed flex-basis (not flex:1) — a squished pillar can't render
-   any standard IAB size, which meant empty slots or overflowing iframes. */
-.vertical-ad {
-  flex: 0 0 160px;
-  width: 160px;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-@media (min-width: 1600px) {
-  .vertical-ad {
-    flex-basis: 300px;
-    width: 300px;
-  }
-}
-
-.vertical-ad ins {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Ensure vertical ad iframes are visible */
-.vertical-ad iframe,
-.vertical-ad ins iframe {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
-}
-
-/* Hide vertical ads when a 160px pillar + game frame can't both fit */
-@media (max-width: 1279px) {
-  .vertical-ad {
-    display: none;
-  }
 }
 
 /* fadeIn animation removed for performance - content appears immediately */
@@ -1172,55 +847,6 @@ header {
 }
 
 /* ============================================================================
-   HORIZONTAL AD ROW - Full-width ads between game rows
-============================================================================ */
-
-.horizontal-ad-row {
-  grid-column: 1 / -1;
-  width: 100%;
-  min-height: 250px;
-  padding: 12px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@media (max-width: 768px) {
-  .horizontal-ad-row {
-    /* Mobile in-content fill is typically 300x250 — reserving less caused
-       a 150px+ layout jump under the user's thumb when the ad rendered. */
-    min-height: 250px;
-  }
-}
-
-.horizontal-ad-row ins {
-  display: block !important;
-  width: 100% !important;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* AdSense sets data-ad-status after its auction. Collapse the whole grid row
-   only when Google explicitly reports no fill, so an empty unit does not
-   leave the 24px strip created by this row's vertical padding. */
-ins.adsbygoogle[data-ad-status="unfilled"] {
-  display: none !important;
-}
-
-.horizontal-ad-row:has(> ins.adsbygoogle[data-ad-status="unfilled"]) {
-  display: none;
-  min-height: 0;
-  padding: 0;
-}
-
-/* Ensure horizontal ad iframes are always visible */
-.horizontal-ad-row iframe,
-.horizontal-ad-row ins iframe {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
-}
-
-/* ============================================================================
    FOOTER
 ============================================================================ */
 
@@ -1613,14 +1239,6 @@ body.game-is-expanded {
 /* A phone held sideways should devote almost the entire short viewport to
    the game while preserving a familiar widescreen game surface. */
 @media (max-height: 520px) and (orientation: landscape) and (max-width: 950px) {
-  /* The header unit is not auctioned at this breakpoint (see adProviders.js),
-     so the short viewport can prioritize the game without hiding a served ad. */
-  .header-banner-ad {
-    display: none;
-  }
-
-  body:has(.header-banner-ad) .game-container,
-  body.has-header-ad .game-container,
   .game-container {
     padding-top: calc(clamp(48px, 6vw, 64px) + 4px);
   }
@@ -1777,17 +1395,6 @@ body.game-is-expanded {
     </div>
   </header>
 
-  <div class="header-banner-ad" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-media="(min-height: 521px), (min-width: 951px)"
-       data-ad-placement="header"></ins>
-  </div>
-
   <!-- Main Game Content -->
   <main itemscope itemtype="https://schema.org/VideoGame">
     <meta itemprop="name" content="Bowmasters">
@@ -1796,17 +1403,6 @@ body.game-is-expanded {
 
     <!-- Game Viewer -->
     <div class="game-container">
-      <aside class="vertical-ad vertical-ad--left" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="9122283604"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-media="(min-width: 1280px)"
-       data-ad-placement="game_pillar_left"></ins>
-  </aside>
       <div class="game-frame-wrapper" id="gameWrapper">
         <div class="game-stage" id="gameStage">
           <div class="play-overlay" id="playOverlay">
@@ -1819,6 +1415,7 @@ body.game-is-expanded {
             src=""
             title="Bowmasters Unblocked - Play Free Online Game at School"
             allow="fullscreen; autoplay; encrypted-media"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals allow-downloads allow-orientation-lock"
             allowfullscreen
             tabindex="0">
           </iframe>
@@ -1832,17 +1429,6 @@ body.game-is-expanded {
           </button>
         </div>
       </div>
-      <aside class="vertical-ad vertical-ad--right" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="9122283604"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-media="(min-width: 1280px)"
-       data-ad-placement="game_pillar_right"></ins>
-  </aside>
     </div>
   </main>
 
@@ -1883,11 +1469,11 @@ body.game-is-expanded {
         <img class="thumb" src="games/Granny/thumbnail.webp" alt="Play Granny Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Granny</div>
-    </a><a href="/Crossy%20Road.html" class="game-card" title="Play Crossy Road Unblocked Free Online" onclick="trackRecentGame('Crossy Road')">
-      <div class="thumb-container" style="--thumb-url: url('games/Crossy Road/thumbnail.webp')">
-        <img class="thumb" src="games/Crossy Road/thumbnail.webp" alt="Play Crossy Road Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/CS%20Go%20Clicker.html" class="game-card" title="Play CS Go Clicker Unblocked Free Online" onclick="trackRecentGame('CS Go Clicker')">
+      <div class="thumb-container" style="--thumb-url: url('games/CS Go Clicker/thumbnail.webp')">
+        <img class="thumb" src="games/CS Go Clicker/thumbnail.webp" alt="Play CS Go Clicker Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Crossy Road</div>
+      <div class="card-title">CS Go Clicker</div>
     </a><a href="/A%20Dance%20of%20Fire%20and%20Ice.html" class="game-card" title="Play A Dance of Fire and Ice Unblocked Free Online" onclick="trackRecentGame('A Dance of Fire and Ice')">
       <div class="thumb-container" style="--thumb-url: url('games/A Dance of Fire and Ice/thumbnail.webp')">
         <img class="thumb" src="games/A Dance of Fire and Ice/thumbnail.webp" alt="Play A Dance of Fire and Ice Unblocked - Free Online Game" loading="lazy" width="300" height="300">
@@ -1918,16 +1504,7 @@ body.game-is-expanded {
         <img class="thumb" src="games/Pokemon Emerald/thumbnail.webp" alt="Play Pokemon Emerald Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Pokemon Emerald</div>
-    </a><div class="horizontal-ad-row" data-ad-index="0" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-placement="in_content"></ins>
-  </div><a href="/Infinite%20Craft.html" class="game-card" title="Play Infinite Craft Unblocked Free Online" onclick="trackRecentGame('Infinite Craft')">
+    </a><a href="/Infinite%20Craft.html" class="game-card" title="Play Infinite Craft Unblocked Free Online" onclick="trackRecentGame('Infinite Craft')">
       <div class="thumb-container" style="--thumb-url: url('games/Infinite Craft/thumbnail.webp')">
         <img class="thumb" src="games/Infinite Craft/thumbnail.webp" alt="Play Infinite Craft Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
@@ -1942,31 +1519,31 @@ body.game-is-expanded {
         <img class="thumb" src="games/Gobble/thumbnail.webp" alt="Play Gobble Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Gobble</div>
-    </a><a href="/Bob%20The%20Robber%202.html" class="game-card" title="Play Bob The Robber 2 Unblocked Free Online" onclick="trackRecentGame('Bob The Robber 2')">
-      <div class="thumb-container" style="--thumb-url: url('games/Bob The Robber 2/thumbnail.webp')">
-        <img class="thumb" src="games/Bob The Robber 2/thumbnail.webp" alt="Play Bob The Robber 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Bob%20The%20Robber%205.html" class="game-card" title="Play Bob The Robber 5 Unblocked Free Online" onclick="trackRecentGame('Bob The Robber 5')">
+      <div class="thumb-container" style="--thumb-url: url('games/Bob The Robber 5/thumbnail.webp')">
+        <img class="thumb" src="games/Bob The Robber 5/thumbnail.webp" alt="Play Bob The Robber 5 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Bob The Robber 2</div>
+      <div class="card-title">Bob The Robber 5</div>
     </a><a href="/Cut%20the%20Rope.html" class="game-card" title="Play Cut the Rope Unblocked Free Online" onclick="trackRecentGame('Cut the Rope')">
       <div class="thumb-container" style="--thumb-url: url('games/Cut the Rope/thumbnail.webp')">
         <img class="thumb" src="games/Cut the Rope/thumbnail.webp" alt="Play Cut the Rope Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Cut the Rope</div>
-    </a><a href="/Whack%20the%20Thief.html" class="game-card" title="Play Whack the Thief Unblocked Free Online" onclick="trackRecentGame('Whack the Thief')">
-      <div class="thumb-container" style="--thumb-url: url('games/Whack the Thief/thumbnail.webp')">
-        <img class="thumb" src="games/Whack the Thief/thumbnail.webp" alt="Play Whack the Thief Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Whack%20Your%20Computer.html" class="game-card" title="Play Whack Your Computer Unblocked Free Online" onclick="trackRecentGame('Whack Your Computer')">
+      <div class="thumb-container" style="--thumb-url: url('games/Whack Your Computer/thumbnail.webp')">
+        <img class="thumb" src="games/Whack Your Computer/thumbnail.webp" alt="Play Whack Your Computer Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Whack the Thief</div>
+      <div class="card-title">Whack Your Computer</div>
     </a><a href="/Hanger%202.html" class="game-card" title="Play Hanger 2 Unblocked Free Online" onclick="trackRecentGame('Hanger 2')">
       <div class="thumb-container" style="--thumb-url: url('games/Hanger 2/thumbnail.webp')">
         <img class="thumb" src="games/Hanger 2/thumbnail.webp" alt="Play Hanger 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Hanger 2</div>
-    </a><a href="/Bloxorz.html" class="game-card" title="Play Bloxorz Unblocked Free Online" onclick="trackRecentGame('Bloxorz')">
-      <div class="thumb-container" style="--thumb-url: url('games/Bloxorz/thumbnail.webp')">
-        <img class="thumb" src="games/Bloxorz/thumbnail.webp" alt="Play Bloxorz Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Bob%20The%20Robber%202.html" class="game-card" title="Play Bob The Robber 2 Unblocked Free Online" onclick="trackRecentGame('Bob The Robber 2')">
+      <div class="thumb-container" style="--thumb-url: url('games/Bob The Robber 2/thumbnail.webp')">
+        <img class="thumb" src="games/Bob The Robber 2/thumbnail.webp" alt="Play Bob The Robber 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Bloxorz</div>
+      <div class="card-title">Bob The Robber 2</div>
     </a><a href="/Polytrack.html" class="game-card" title="Play Polytrack Unblocked Free Online" onclick="trackRecentGame('Polytrack')">
       <div class="thumb-container" style="--thumb-url: url('games/Polytrack/thumbnail.webp')">
         <img class="thumb" src="games/Polytrack/thumbnail.webp" alt="Play Polytrack Unblocked - Free Online Game" loading="lazy" width="300" height="300">
@@ -1987,16 +1564,7 @@ body.game-is-expanded {
         <img class="thumb" src="games/Henry Stickmin Escaping The Prison/thumbnail.webp" alt="Play Henry Stickmin Escaping The Prison Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Henry Stickmin Escaping The Prison</div>
-    </a><div class="horizontal-ad-row" data-ad-index="1" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-placement="in_content"></ins>
-  </div><a href="/Buster%20Jam.html" class="game-card" title="Play Buster Jam Unblocked Free Online" onclick="trackRecentGame('Buster Jam')">
+    </a><a href="/Buster%20Jam.html" class="game-card" title="Play Buster Jam Unblocked Free Online" onclick="trackRecentGame('Buster Jam')">
       <div class="thumb-container" style="--thumb-url: url('games/Buster Jam/thumbnail.webp')">
         <img class="thumb" src="games/Buster Jam/thumbnail.webp" alt="Play Buster Jam Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
@@ -2006,80 +1574,71 @@ body.game-is-expanded {
         <img class="thumb" src="games/Ages of Conflict/thumbnail.webp" alt="Play Ages of Conflict Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Ages of Conflict</div>
-    </a><a href="/Block%20Blast.html" class="game-card" title="Play Block Blast Unblocked Free Online" onclick="trackRecentGame('Block Blast')">
-      <div class="thumb-container" style="--thumb-url: url('games/Block Blast/thumbnail.webp')">
-        <img class="thumb" src="games/Block Blast/thumbnail.webp" alt="Play Block Blast Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Block%20the%20Pig.html" class="game-card" title="Play Block the Pig Unblocked Free Online" onclick="trackRecentGame('Block the Pig')">
+      <div class="thumb-container" style="--thumb-url: url('games/Block the Pig/thumbnail.webp')">
+        <img class="thumb" src="games/Block the Pig/thumbnail.webp" alt="Play Block the Pig Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Block Blast</div>
-    </a><a href="/Bouncy%20Motors.html" class="game-card" title="Play Bouncy Motors Unblocked Free Online" onclick="trackRecentGame('Bouncy Motors')">
-      <div class="thumb-container" style="--thumb-url: url('games/Bouncy Motors/thumbnail.webp')">
-        <img class="thumb" src="games/Bouncy Motors/thumbnail.webp" alt="Play Bouncy Motors Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">Block the Pig</div>
+    </a><a href="/Brawl%20Simulator%203D.html" class="game-card" title="Play Brawl Simulator 3D Unblocked Free Online" onclick="trackRecentGame('Brawl Simulator 3D')">
+      <div class="thumb-container" style="--thumb-url: url('games/Brawl Simulator 3D/thumbnail.webp')">
+        <img class="thumb" src="games/Brawl Simulator 3D/thumbnail.webp" alt="Play Brawl Simulator 3D Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Bouncy Motors</div>
+      <div class="card-title">Brawl Simulator 3D</div>
     </a><a href="/Meme%20Soundboard.html" class="game-card" title="Play Meme Soundboard Unblocked Free Online" onclick="trackRecentGame('Meme Soundboard')">
       <div class="thumb-container" style="--thumb-url: url('games/Meme Soundboard/thumbnail.webp')">
         <img class="thumb" src="games/Meme Soundboard/thumbnail.webp" alt="Play Meme Soundboard Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Meme Soundboard</div>
-    </a><a href="/Clear%20Vision%203.html" class="game-card" title="Play Clear Vision 3 Unblocked Free Online" onclick="trackRecentGame('Clear Vision 3')">
-      <div class="thumb-container" style="--thumb-url: url('games/Clear Vision 3/thumbnail.webp')">
-        <img class="thumb" src="games/Clear Vision 3/thumbnail.webp" alt="Play Clear Vision 3 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Clear%20Vision%204.html" class="game-card" title="Play Clear Vision 4 Unblocked Free Online" onclick="trackRecentGame('Clear Vision 4')">
+      <div class="thumb-container" style="--thumb-url: url('games/Clear Vision 4/thumbnail.webp')">
+        <img class="thumb" src="games/Clear Vision 4/thumbnail.webp" alt="Play Clear Vision 4 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Clear Vision 3</div>
-    </a><a href="/Blaze%20Drifter.html" class="game-card" title="Play Blaze Drifter Unblocked Free Online" onclick="trackRecentGame('Blaze Drifter')">
-      <div class="thumb-container" style="--thumb-url: url('games/Blaze Drifter/thumbnail.webp')">
-        <img class="thumb" src="games/Blaze Drifter/thumbnail.webp" alt="Play Blaze Drifter Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">Clear Vision 4</div>
+    </a><a href="/Block%20Blast.html" class="game-card" title="Play Block Blast Unblocked Free Online" onclick="trackRecentGame('Block Blast')">
+      <div class="thumb-container" style="--thumb-url: url('games/Block Blast/thumbnail.webp')">
+        <img class="thumb" src="games/Block Blast/thumbnail.webp" alt="Play Block Blast Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Blaze Drifter</div>
+      <div class="card-title">Block Blast</div>
     </a><a href="/Slide%20in%20the%20Woods.html" class="game-card" title="Play Slide in the Woods Unblocked Free Online" onclick="trackRecentGame('Slide in the Woods')">
       <div class="thumb-container" style="--thumb-url: url('games/Slide in the Woods/thumbnail.webp')">
         <img class="thumb" src="games/Slide in the Woods/thumbnail.webp" alt="Play Slide in the Woods Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Slide in the Woods</div>
-    </a><a href="/Clear%20Vision%202.html" class="game-card" title="Play Clear Vision 2 Unblocked Free Online" onclick="trackRecentGame('Clear Vision 2')">
-      <div class="thumb-container" style="--thumb-url: url('games/Clear Vision 2/thumbnail.webp')">
-        <img class="thumb" src="games/Clear Vision 2/thumbnail.webp" alt="Play Clear Vision 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/Clear%20Vision%203.html" class="game-card" title="Play Clear Vision 3 Unblocked Free Online" onclick="trackRecentGame('Clear Vision 3')">
+      <div class="thumb-container" style="--thumb-url: url('games/Clear Vision 3/thumbnail.webp')">
+        <img class="thumb" src="games/Clear Vision 3/thumbnail.webp" alt="Play Clear Vision 3 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Clear Vision 2</div>
+      <div class="card-title">Clear Vision 3</div>
     </a><a href="/Happy%20Wheels.html" class="game-card" title="Play Happy Wheels Unblocked Free Online" onclick="trackRecentGame('Happy Wheels')">
       <div class="thumb-container" style="--thumb-url: url('games/Happy Wheels/thumbnail.webp')">
         <img class="thumb" src="games/Happy Wheels/thumbnail.webp" alt="Play Happy Wheels Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
       <div class="card-title">Happy Wheels</div>
-    </a><a href="/Brotato.html" class="game-card" title="Play Brotato Unblocked Free Online" onclick="trackRecentGame('Brotato')">
-      <div class="thumb-container" style="--thumb-url: url('games/Brotato/thumbnail.webp')">
-        <img class="thumb" src="games/Brotato/thumbnail.webp" alt="Play Brotato Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+    </a><a href="/BTD5.html" class="game-card" title="Play BTD5 Unblocked Free Online" onclick="trackRecentGame('BTD5')">
+      <div class="thumb-container" style="--thumb-url: url('games/BTD5/thumbnail.webp')">
+        <img class="thumb" src="games/BTD5/thumbnail.webp" alt="Play BTD5 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Brotato</div>
-    </a><a href="/Bob%20The%20Robber%205.html" class="game-card" title="Play Bob The Robber 5 Unblocked Free Online" onclick="trackRecentGame('Bob The Robber 5')">
-      <div class="thumb-container" style="--thumb-url: url('games/Bob The Robber 5/thumbnail.webp')">
-        <img class="thumb" src="games/Bob The Robber 5/thumbnail.webp" alt="Play Bob The Robber 5 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">BTD5</div>
+    </a><a href="/Bob%20The%20Robber.html" class="game-card" title="Play Bob The Robber Unblocked Free Online" onclick="trackRecentGame('Bob The Robber')">
+      <div class="thumb-container" style="--thumb-url: url('games/Bob The Robber/thumbnail.webp')">
+        <img class="thumb" src="games/Bob The Robber/thumbnail.webp" alt="Play Bob The Robber Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Bob The Robber 5</div>
-    </a><div class="horizontal-ad-row" data-ad-index="2" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-placement="in_content"></ins>
-  </div><a href="/FNAF%202.html" class="game-card" title="Play FNAF 2 Unblocked Free Online" onclick="trackRecentGame('FNAF 2')">
-      <div class="thumb-container" style="--thumb-url: url('games/FNAF 2/thumbnail.webp')">
-        <img class="thumb" src="games/FNAF 2/thumbnail.webp" alt="Play FNAF 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">Bob The Robber</div>
+    </a><a href="/Five%20Nights%20at%20Epstein%20Island.html" class="game-card" title="Play Five Nights at Epstein Island Unblocked Free Online" onclick="trackRecentGame('Five Nights at Epstein Island')">
+      <div class="thumb-container" style="--thumb-url: url('games/Five Nights at Epstein Island/thumbnail.webp')">
+        <img class="thumb" src="games/Five Nights at Epstein Island/thumbnail.webp" alt="Play Five Nights at Epstein Island Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">FNAF 2</div>
-    </a><a href="/Crazy%20Cars.html" class="game-card" title="Play Crazy Cars Unblocked Free Online" onclick="trackRecentGame('Crazy Cars')">
-      <div class="thumb-container" style="--thumb-url: url('games/Crazy Cars/thumbnail.webp')">
-        <img class="thumb" src="games/Crazy Cars/thumbnail.webp" alt="Play Crazy Cars Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">Five Nights at Epstein Island</div>
+    </a><a href="/Crazy%20Motorcycle.html" class="game-card" title="Play Crazy Motorcycle Unblocked Free Online" onclick="trackRecentGame('Crazy Motorcycle')">
+      <div class="thumb-container" style="--thumb-url: url('games/Crazy Motorcycle/thumbnail.webp')">
+        <img class="thumb" src="games/Crazy Motorcycle/thumbnail.webp" alt="Play Crazy Motorcycle Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Crazy Cars</div>
-    </a><a href="/Bloodmoney%202.html" class="game-card" title="Play Bloodmoney 2 Unblocked Free Online" onclick="trackRecentGame('Bloodmoney 2')">
-      <div class="thumb-container" style="--thumb-url: url('games/Bloodmoney 2/thumbnail.webp')">
-        <img class="thumb" src="games/Bloodmoney 2/thumbnail.webp" alt="Play Bloodmoney 2 Unblocked - Free Online Game" loading="lazy" width="300" height="300">
+      <div class="card-title">Crazy Motorcycle</div>
+    </a><a href="/Bloxorz.html" class="game-card" title="Play Bloxorz Unblocked Free Online" onclick="trackRecentGame('Bloxorz')">
+      <div class="thumb-container" style="--thumb-url: url('games/Bloxorz/thumbnail.webp')">
+        <img class="thumb" src="games/Bloxorz/thumbnail.webp" alt="Play Bloxorz Unblocked - Free Online Game" loading="lazy" width="300" height="300">
       </div>
-      <div class="card-title">Bloodmoney 2</div>
+      <div class="card-title">Bloxorz</div>
     </a><a href="/One%20Bit%20Adventure.html" class="game-card" title="Play One Bit Adventure Unblocked Free Online" onclick="trackRecentGame('One Bit Adventure')">
       <div class="thumb-container" style="--thumb-url: url('games/One Bit Adventure/thumbnail.webp')">
         <img class="thumb" src="games/One Bit Adventure/thumbnail.webp" alt="Play One Bit Adventure Unblocked - Free Online Game" loading="lazy" width="300" height="300">
@@ -2140,22 +1699,11 @@ body.game-is-expanded {
     </div>
   </section>
 
-  <div class="bottom-leaderboard-ad" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-lazy="true"
-       data-ad-placement="bottom"></ins>
-  </div>
-
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
         <h3>Chromebook Unlocked Games</h3>
-        <span class="footer-url">chromebookunlocked.github.io</span>
+        <span class="footer-url">chromebook-unlocked.github.io</span>
       </div>
       <div class="footer-links">
         <a href="/important-pages/privacy-policy.html">Privacy Policy</a>
@@ -2183,10 +1731,10 @@ body.game-is-expanded {
     "Bowmasters Unrestricted",
     "Play Bowmasters Online Free"
   ],
-  "url": "https://chromebookunlocked.github.io/Bowmasters.html",
+  "url": "https://chromebook-unlocked.github.io/Bowmasters.html",
   "description": "Play Bowmasters unblocked online free! Enjoy this popular action, sports, 2 player game unrestricted on your Chromebook or school computer. No downloads required - play online free instantly!",
-  "image": "https://chromebookunlocked.github.io/games/Bowmasters/thumbnail.webp",
-  "thumbnailUrl": "https://chromebookunlocked.github.io/games/Bowmasters/thumbnail.webp",
+  "image": "https://chromebook-unlocked.github.io/games/Bowmasters/thumbnail.webp",
+  "thumbnailUrl": "https://chromebook-unlocked.github.io/games/Bowmasters/thumbnail.webp",
   "genre": [
     "Action",
     "Sports",
@@ -2216,10 +1764,10 @@ body.game-is-expanded {
   "publisher": {
     "@type": "Organization",
     "name": "Chromebook Unlocked Games",
-    "url": "https://chromebookunlocked.github.io/",
+    "url": "https://chromebook-unlocked.github.io/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://chromebookunlocked.github.io/assets/logo.webp"
+      "url": "https://chromebook-unlocked.github.io/assets/logo.webp"
     }
   }
 }
@@ -2233,19 +1781,19 @@ body.game-is-expanded {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://chromebookunlocked.github.io/"
+      "item": "https://chromebook-unlocked.github.io/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Action",
-      "item": "https://chromebookunlocked.github.io/#/category/Action"
+      "item": "https://chromebook-unlocked.github.io/#/category/Action"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Bowmasters",
-      "item": "https://chromebookunlocked.github.io/Bowmasters.html"
+      "item": "https://chromebook-unlocked.github.io/Bowmasters.html"
     }
   ]
 }
@@ -2256,13 +1804,13 @@ body.game-is-expanded {
   "@type": "WebPage",
   "name": "Bowmasters Unblocked - Play Online Free",
   "description": "Play Bowmasters unblocked online free at school on your Chromebook - unrestricted games",
-  "url": "https://chromebookunlocked.github.io/Bowmasters.html",
-  "image": "https://chromebookunlocked.github.io/games/Bowmasters/thumbnail.webp",
+  "url": "https://chromebook-unlocked.github.io/Bowmasters.html",
+  "image": "https://chromebook-unlocked.github.io/games/Bowmasters/thumbnail.webp",
   "inLanguage": "en-US",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Chromebook Unlocked Games",
-    "url": "https://chromebookunlocked.github.io/"
+    "url": "https://chromebook-unlocked.github.io/"
   },
   "about": {
     "@type": "VideoGame",
@@ -2271,16 +1819,12 @@ body.game-is-expanded {
   "mainEntity": {
     "@type": "VideoGame",
     "name": "Bowmasters",
-    "url": "https://chromebookunlocked.github.io/Bowmasters.html"
+    "url": "https://chromebook-unlocked.github.io/Bowmasters.html"
   }
 }
   </script>
 
   <script>
-    let gameStartTime = null;
-    let gamePlayDuration = 0;
-    let gameDurationInterval = null;
-
     // Track a game as recently played when clicking on recommendation
     function trackRecentGame(folder) {
       const MAX_RECENT_GAMES = 15;
@@ -2298,16 +1842,6 @@ body.game-is-expanded {
       localStorage.setItem('recentlyPlayed', JSON.stringify(recentlyPlayed));
     }
 
-    // Track initial game page view
-    if (typeof trackEnhancedPageView !== 'undefined') {
-      trackEnhancedPageView('game_page', 'Bowmasters', {
-        game_name: 'Bowmasters',
-        game_folder: 'Bowmasters',
-        game_categories: 'Action, Sports, 2 Player',
-        from_page: document.referrer || 'direct'
-      });
-    }
-
     function startGame() {
       const overlay = document.getElementById('playOverlay');
       const frame = document.getElementById('gameFrame');
@@ -2321,17 +1855,6 @@ body.game-is-expanded {
 
       // Focus the game frame after a short delay for iframe to initialize
       setTimeout(focusGameFrame, 100);
-
-      // Track game start time and send analytics event
-      gameStartTime = Date.now();
-      gamePlayDuration = 0;
-
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'game_started', {
-          game_name: 'Bowmasters',
-          game_folder: 'Bowmasters'
-        });
-      }
 
       // Track in Recently Played
       saveToRecentlyPlayed();
@@ -2618,14 +2141,6 @@ body.game-is-expanded {
         btnIcon.style.transform = 'rotate(180deg)';
       }
     }
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-      // Clear duration tracking interval if exists
-      if (typeof gameDurationInterval !== 'undefined' && gameDurationInterval) {
-        clearInterval(gameDurationInterval);
-      }
-    });
 
   </script>
 

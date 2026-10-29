@@ -31,8 +31,7 @@
       if (!parsed || typeof parsed !== 'object') return null;
       return {
         essential: true,
-        analytics: parsed.analytics === true,
-        marketing: parsed.marketing === true
+        analytics: parsed.analytics === true
       };
     } catch (e) {
       return null;
@@ -63,7 +62,7 @@
       <div class="cookie-consent-content">
         <h3 class="cookie-consent-title">Cookie Settings</h3>
         <p class="cookie-consent-text">
-          Choose whether we may use analytics and advertising cookies. Closing this window keeps only essential storage enabled.
+          Choose whether we may use analytics cookies. Closing this window keeps only essential storage enabled.
           <a href="/important-pages/cookie-policy.html">Learn more</a>
         </p>
         <div id="cookieMainView">
@@ -95,16 +94,6 @@
                 <span class="cookie-toggle-slider"></span>
               </label>
             </div>
-            <div class="cookie-category">
-              <div class="cookie-category-info">
-                <p class="cookie-category-name">Marketing</p>
-                <p class="cookie-category-desc">Personalized ads and content</p>
-              </div>
-              <label class="cookie-toggle">
-                <input type="checkbox" id="cookieMarketing">
-                <span class="cookie-toggle-slider"></span>
-              </label>
-            </div>
           </div>
           <div class="cookie-consent-buttons">
             <button id="cookieDecline" class="cookie-btn cookie-btn-decline">Decline all</button>
@@ -118,16 +107,16 @@
 
     // Dismissing a consent prompt is not affirmative consent.
     document.getElementById('cookieClose').addEventListener('click', function () {
-      saveConsent({ essential: true, analytics: false, marketing: false });
+      saveConsent({ essential: true, analytics: false });
     });
 
     // Accept button accepts all
     document.getElementById('cookieAccept').addEventListener('click', function () {
-      saveConsent({ essential: true, analytics: true, marketing: true });
+      saveConsent({ essential: true, analytics: true });
     });
 
     document.getElementById('cookieDeclineMain').addEventListener('click', function () {
-      saveConsent({ essential: true, analytics: false, marketing: false });
+      saveConsent({ essential: true, analytics: false });
     });
 
     // More options shows categories
@@ -138,14 +127,13 @@
 
     // Decline all
     document.getElementById('cookieDecline').addEventListener('click', function () {
-      saveConsent({ essential: true, analytics: false, marketing: false });
+      saveConsent({ essential: true, analytics: false });
     });
 
     // Save preferences
     document.getElementById('cookieSave').addEventListener('click', function () {
       const analytics = document.getElementById('cookieAnalytics').checked;
-      const marketing = document.getElementById('cookieMarketing').checked;
-      saveConsent({ essential: true, analytics: analytics, marketing: marketing });
+      saveConsent({ essential: true, analytics: analytics });
     });
 
     requestAnimationFrame(() => {
@@ -162,15 +150,12 @@
     hideBanner();
   }
 
-  // Push the visitor's choice into Google Consent Mode v2 so GA/ad tags
-  // honor it immediately (the page-level default is set in <head>).
+  // Push the visitor's choice into Google Consent Mode if an analytics tag
+  // is installed; without one this is a no-op.
   function updateConsentMode(preferences) {
     if (typeof window.gtag !== 'function') return;
     window.gtag('consent', 'update', {
-      analytics_storage: preferences.analytics ? 'granted' : 'denied',
-      ad_storage: preferences.marketing ? 'granted' : 'denied',
-      ad_user_data: preferences.marketing ? 'granted' : 'denied',
-      ad_personalization: preferences.marketing ? 'granted' : 'denied'
+      analytics_storage: preferences.analytics ? 'granted' : 'denied'
     });
   }
 
@@ -199,10 +184,10 @@
 
   window.cookieConsent = {
     accept: function () {
-      saveConsent({ essential: true, analytics: true, marketing: true });
+      saveConsent({ essential: true, analytics: true });
     },
     decline: function () {
-      saveConsent({ essential: true, analytics: false, marketing: false });
+      saveConsent({ essential: true, analytics: false });
     },
     reset: function () {
       document.cookie = `${COOKIE_NAME}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;

@@ -59,43 +59,6 @@ function updateRecentlyPlayedNav() {
   }
 }
 
-// Horizontal ad configuration: every 2 desktop rows (12 games at 6 columns)
-const AD_INTERVAL = window.__adInterval || 12;
-let adCount = window.__adCount || 0;
-
-/**
- * Check if a horizontal ad should be inserted after a given game index
- * @param {number} gameIndex - The 0-indexed position in the game list
- * @returns {boolean} Whether an ad should be inserted after this game
- */
-function shouldInsertAdAfter(gameIndex) {
-  if (window.__adsEnabled === false) return false;
-  return (gameIndex + 1) % AD_INTERVAL === 0;
-}
-
-/**
- * Create a full-width horizontal ad element
- * @param {number} adIndex - Unique index for this ad
- * @returns {HTMLElement} Horizontal ad element
- */
-function createHorizontalAd(adIndex) {
-  const div = document.createElement('div');
-  div.className = 'horizontal-ad-row';
-  div.setAttribute('data-ad-index', adIndex);
-  div.setAttribute('role', 'complementary');
-  div.setAttribute('aria-label', 'Advertisement');
-
-  div.innerHTML = `<ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1033412505744705"
-       data-ad-slot="2719401053"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-       data-ad-placement="in_content"
-       data-ad-lazy="true"></ins>`;
-  return div;
-}
-
 // Cached DOM elements for performance
 let cachedElements = null;
 function getCachedElements() {
@@ -251,7 +214,6 @@ function loadMoreGames(count) {
   // Use requestAnimationFrame for smooth rendering
   requestAnimationFrame(() => {
     const fragment = document.createDocumentFragment();
-    const newAdRows = [];
     const endIndex = Math.min(renderedCount + count, totalGames);
 
     for (let i = renderedCount; i < endIndex; i++) {
@@ -264,20 +226,9 @@ function loadMoreGames(count) {
       if (img && imageObserver) {
         imageObserver.observe(img);
       }
-
-      // Insert a horizontal ad every 2 desktop rows (every 12 games)
-      if (shouldInsertAdAfter(i)) {
-        const adEl = createHorizontalAd(adCount);
-        fragment.appendChild(adEl);
-        newAdRows.push(adEl);
-        adCount++;
-      }
     }
 
     gamesGrid.appendChild(fragment);
-    if (window.__initAdSenseSlots) {
-      newAdRows.forEach(adRow => window.__initAdSenseSlots(adRow));
-    }
     renderedCount = endIndex;
 
     if (renderedCount >= totalGames) {
@@ -301,7 +252,6 @@ function resetAndReloadGrid(category) {
   renderedCount = 0;
   allGamesLoaded = false;
   isLoading = false;
-  adCount = 0; // Reset ad count for new grid
 
   // Clear existing cards
   gamesGrid.innerHTML = '';

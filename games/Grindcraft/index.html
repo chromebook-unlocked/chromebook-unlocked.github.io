@@ -67,10 +67,9 @@
             j = d.createElement(s),
             dl = l != "dataLayer" ? "&l=" + l : "";
           j.async = true;
-          j.src =
-            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          /* third-party GTM loader removed */
           f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-WKRSNN8");
+        })(window, document, "script", "dataLayer", "");
       }
     }
     cmg_ga4_init_ga();
@@ -327,10 +326,9 @@
           j = d.createElement(s),
           dl = l != "dataLayer" ? "&l=" + l : "";
         j.async = true;
-        j.src =
-          "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        /* third-party GTM loader removed */
         f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-WKRSNN8");
+      })(window, document, "script", "dataLayer", "");
 
       function ga4ObjInit(event) {
         ga4Obj = {};
@@ -432,12 +430,12 @@
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
-      })(window, document, "script", "//www.google-analytics.com/analytics.js", "__gaTracker");
+      })(window, document, "script", "", "__gaTracker");
       var ga_dev_host = /(stage|stage2|dev|dev2|dev3|d9\-test)(\-edit)?\.coolmathgames\.(com|local)/.test(window.location.host);
       if (ga_dev_host || window.location.host == "d9-test-coolmathgames.local") {
-        __gaTracker("create", "UA-1192998-21", "auto");
+        __gaTracker("create", "", "auto");
       } else {
-        __gaTracker("create", "UA-1192998-2", "auto");
+        __gaTracker("create", "", "auto");
       }
 
       //End of GA loading

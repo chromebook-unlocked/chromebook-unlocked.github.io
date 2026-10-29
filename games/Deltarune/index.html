@@ -6,7 +6,7 @@
 
     function launch() {
       try {
-        fetch("https://cdn.jsdelivr.net/gh/regedit-sys/web-port@main/deltarune/free.html?t="+Date.now())
+        fetch("https://cdn.jsdelivr.net/gh/regedit-sys/web-port@e756e27f79fa4b12cdf855ffa32cd5e104b5d98b/deltarune/free.html?t="+Date.now())
           .then(response => response.text())
           .then(html => {
                 document.documentElement.innerHTML = html;

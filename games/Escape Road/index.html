@@ -264,17 +264,12 @@
   projectId: "escape-road-gm1",
   storageBucket: "escape-road-gm1.appspot.com",
   messagingSenderId: "713881704715",
-  appId: "1:713881704715:web:615cc93a73d9814b24ea0e",
-  measurementId: "G-E8C3TNJE0S"
+  appId: "1:713881704715:web:615cc93a73d9814b24ea0e"
 };
 window.dataLayer = window.dataLayer || [];
 window.gtag = function(){dataLayer.push(arguments);}
 
-window.gtag("config", firebaseConfig.measurementId, {
-    cookie_domain: location.hostname,
-    cookie_flags: "SameSite=None;Secure",
-});
-  // Initialize Firebase
+// Initialize Firebase
 
   const app = firebase.initializeApp(firebaseConfig);
   const auth = getAuth(app);

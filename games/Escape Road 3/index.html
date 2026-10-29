@@ -8,7 +8,7 @@
 
 <html lang="en-us">
 <head>
-	<base href="https://cdn.jsdelivr.net/gh/genizy/escape-road-3@main/">
+	<base href="https://cdn.jsdelivr.net/gh/genizy/escape-road-3@ce369b3812532300e39eb549592a040e7d896aa4/">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="game.css">
@@ -202,7 +202,6 @@ function isDiffHost() {
 	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics-compat.js"></script>
 	<script type="module">
 		const firebaseConfig = {
     apiKey: "AIzaSyDUyjnqlS0gquhgZBuoXHs-kRSOMG-htU4",
@@ -210,18 +209,13 @@ function isDiffHost() {
     projectId: "ofree-32967",
     storageBucket: "ofree-32967.firebasestorage.app",
     messagingSenderId: "777959803199",
-    appId: "1:777959803199:web:cca8a2a59ce3b36749eb8a",
-    measurementId: "G-MEMBWQ3ZR8"
+    appId: "1:777959803199:web:cca8a2a59ce3b36749eb8a"
   };
 		if (typeof firebaseConfig !== 'undefined'){
 			if(firebaseConfig ){
 				window.dataLayer = window.dataLayer || [];
 				window.gtag = function () { window.dataLayer.push(arguments); }
 
-				window.gtag("config", firebaseConfig.measurementId, {
-				  cookie_domain: window.location.hostname,
-				  cookie_flags: "SameSite=None;Secure",
-				});
 				// Initialize Firebase
 				const app = firebase.initializeApp(firebaseConfig);
 				//const auth = getAuth(app);

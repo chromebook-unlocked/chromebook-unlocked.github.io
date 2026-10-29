@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <base href = "https://cdn.jsdelivr.net/gh/cooldude2349/everything@main/blazedrift/">
+    <base href = "https://cdn.jsdelivr.net/gh/cooldude2349/everything@c971830969590ba871cdc88e79d6c9d181ffc74b/blazedrift/">
 <head>
 <meta charset="UTF-8"/>
 <title>Blaze Drifter</title>
@@ -92,7 +92,18 @@
 	window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false }); */
   </script>
   <!--<script type="text/javascript" src="main.js"></script>-->
-  <script src="poki-sdk-edit3.js"></script>
+  <script>
+/* Ad SDK removed: no-op stand-in so the game starts without ads. */
+window.PokiSDK = new Proxy({}, { get: function (t, k) {
+  if (typeof k !== 'string' || k === 'then') return undefined;
+  if (k === 'rewardedBreak') return function () { return Promise.resolve(false); };
+  if (k === 'isAdBlocked') return function () { return false; };
+  if (k === 'getURLParam') return function () { return ''; };
+  if (k === 'getLanguage') return function () { return 'en'; };
+  if (k === 'shareableURL') return function () { return Promise.resolve(location.href); };
+  return function () { return Promise.resolve(); };
+} });
+</script>
   <script async="false" type="text/javascript" src="moonbird.js"></script>
 </body>
 </html>

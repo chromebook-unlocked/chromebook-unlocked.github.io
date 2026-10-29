@@ -1,27 +1,8 @@
 const { getThumbPath, FALLBACK_THUMBNAIL } = require("../utils/assetManager");
 const { generateGameMetaTags, generateGameStructuredData, generateGameSEOTitle, generateGameSEODescription } = require("../utils/seoBuilder");
-const { generateAnalyticsScript, generateConsentModeScript } = require("../utils/analyticsEnhanced");
 const { escapeHtml, escapeHtmlAttr } = require("../utils/htmlEscape");
-const { RECOMMENDED_GAMES_COUNT, MAX_RELATED_GAMES, GAME_DURATION_TRACKING_INTERVAL } = require("../utils/constants");
-const {
-  generateAdNetworkHeadHints,
-  generateAdNetworkHeadScript,
-  generateHorizontalAd: providerHorizontalAd,
-  generateVerticalAd: providerVerticalAd,
-  generateHeaderBannerAd,
-  generateBottomLeaderboardAd
-} = require("../utils/adProviders");
-
-// Horizontal ad configuration: insert every 2 desktop rows (2 × 6 = 12 games)
-const AD_INTERVAL = 12; // ad every 2 rows of 6
-
-function generateHorizontalAd(adIndex, adsEnabled = true) {
-  return providerHorizontalAd(adIndex, adsEnabled);
-}
-
-function generateVerticalAd(adsEnabled = true, side = 'left') {
-  return providerVerticalAd(adsEnabled, side);
-}
+const { generateGoogleTag } = require("../utils/analytics");
+const { RECOMMENDED_GAMES_COUNT, MAX_RELATED_GAMES, GAME_FRAME_SANDBOX, SITE_HOST } = require("../utils/constants");
 
 // Helper to escape JavaScript string for use in HTML script tags
 function escapeJs(str) {
@@ -45,7 +26,7 @@ function escapeJs(str) {
  * @param {string} gamesDir - Path to games directory
  * @returns {string} Complete HTML document for game page
  */
-function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, adsEnabled = true, botVerificationEnabled = true) {
+function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir) {
   const thumbInfo = getThumbPath(game, gamesDir);
   const thumbPath = thumbInfo.path;
   const gameUrl = `games/${game.folder}/index.html`;
@@ -56,7 +37,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
   const escapedGameNameAttr = escapeHtmlAttr(game.name);
   const escapedGameFolder = escapeHtmlAttr(game.folder);
   const escapedCategoryList = escapeHtml(categoryList);
-  const escapedCategoryListJs = escapeJs(categoryList);
 
   // Get similar games for "You Might Also Like" section (no duplicates).
   // Order is a deterministic shuffle seeded by this game's folder: stable
@@ -90,8 +70,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
   ));
 
   // Build recommendations: first related games, then fill with other games
-  // Use RECOMMENDED_GAMES_COUNT (42) — horizontal ads are inserted between rows,
-  // not as grid items, so all 42 slots are game cards.
   const recommendations = [];
 
   // Add related games first (up to MAX_RELATED_GAMES)
@@ -109,10 +87,8 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
     recommendations.push(...moreRelated);
   }
 
-  // Generate recommended games HTML with horizontal ads every 2 desktop rows
-  let adCount = 0;
   let recommendedGamesHTML = '';
-  recommendations.forEach((g, idx) => {
+  recommendations.forEach((g) => {
     const gThumbInfo = getThumbPath(g, gamesDir);
     const gThumbPath = gThumbInfo.path;
     const escapedFolder = escapeHtmlAttr(g.folder);
@@ -127,12 +103,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
       </div>
       <div class="card-title">${escapedNameText}</div>
     </a>`;
-
-    // Insert a full-width horizontal ad every 2 desktop rows (every 12 games)
-    if ((idx + 1) % AD_INTERVAL === 0) {
-      recommendedGamesHTML += generateHorizontalAd(adCount, adsEnabled);
-      adCount++;
-    }
   });
 
   // Get SEO meta tags and structured data
@@ -147,26 +117,9 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+  ${generateGoogleTag()}
+
   ${metaTags}
-
-  <!-- Resource Hints for Performance -->
-  ${generateAdNetworkHeadHints(adsEnabled)}
-
-  ${botVerificationEnabled ? `<!-- Cloudflare Turnstile verification gate (must load before ads) -->
-  <script src="assets/bot-detector.js"></script>` : ''}
-
-  ${generateConsentModeScript()}
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QZLTDX504"></script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-4QZLTDX504', { send_page_view: false });
-  </script>
-
-  ${generateAdNetworkHeadScript(adsEnabled)}
-
-  ${generateAnalyticsScript()}
 
   <!-- Google Fonts (async, non-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,8 +141,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
     </div>
   </header>
 
-  ${generateHeaderBannerAd(adsEnabled)}
-
   <!-- Main Game Content -->
   <main itemscope itemtype="https://schema.org/VideoGame">
     <meta itemprop="name" content="${escapedGameNameAttr}">
@@ -198,7 +149,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
 
     <!-- Game Viewer -->
     <div class="game-container">
-      ${generateVerticalAd(adsEnabled, 'left')}
       <div class="game-frame-wrapper" id="gameWrapper">
         <div class="game-stage" id="gameStage">
           <div class="play-overlay" id="playOverlay">
@@ -211,6 +161,7 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
             src=""
             title="${escapedGameNameAttr} Unblocked - Play Free Online Game at School"
             allow="fullscreen; autoplay; encrypted-media"
+            sandbox="${GAME_FRAME_SANDBOX}"
             allowfullscreen
             tabindex="0">
           </iframe>
@@ -224,7 +175,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
           </button>
         </div>
       </div>
-      ${generateVerticalAd(adsEnabled, 'right')}
     </div>
   </main>
 
@@ -293,13 +243,11 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
     </div>
   </section>
 
-  ${generateBottomLeaderboardAd(adsEnabled)}
-
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
         <h3>Chromebook Unlocked Games</h3>
-        <span class="footer-url">chromebookunlocked.github.io</span>
+        <span class="footer-url">${SITE_HOST}</span>
       </div>
       <div class="footer-links">
         <a href="/important-pages/privacy-policy.html">Privacy Policy</a>
@@ -318,10 +266,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
   ${structuredData}
 
   <script>
-    let gameStartTime = null;
-    let gamePlayDuration = 0;
-    let gameDurationInterval = null;
-
     // Track a game as recently played when clicking on recommendation
     function trackRecentGame(folder) {
       const MAX_RECENT_GAMES = 15;
@@ -339,16 +283,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
       localStorage.setItem('recentlyPlayed', JSON.stringify(recentlyPlayed));
     }
 
-    // Track initial game page view
-    if (typeof trackEnhancedPageView !== 'undefined') {
-      trackEnhancedPageView('game_page', '${escapeJs(game.name)}', {
-        game_name: '${escapeJs(game.name)}',
-        game_folder: '${escapeJs(game.folder)}',
-        game_categories: '${escapedCategoryListJs}',
-        from_page: document.referrer || 'direct'
-      });
-    }
-
     function startGame() {
       const overlay = document.getElementById('playOverlay');
       const frame = document.getElementById('gameFrame');
@@ -362,17 +296,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
 
       // Focus the game frame after a short delay for iframe to initialize
       setTimeout(focusGameFrame, 100);
-
-      // Track game start time and send analytics event
-      gameStartTime = Date.now();
-      gamePlayDuration = 0;
-
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'game_started', {
-          game_name: '${escapeJs(game.name)}',
-          game_folder: '${escapeJs(game.folder)}'
-        });
-      }
 
       // Track in Recently Played
       saveToRecentlyPlayed();
@@ -659,14 +582,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir, 
         btnIcon.style.transform = 'rotate(180deg)';
       }
     }
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-      // Clear duration tracking interval if exists
-      if (typeof gameDurationInterval !== 'undefined' && gameDurationInterval) {
-        clearInterval(gameDurationInterval);
-      }
-    });
 
   </script>
 

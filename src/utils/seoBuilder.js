@@ -4,7 +4,7 @@
  * Keywords focus: unblocked, online, free, school, games, chromebook
  */
 
-const BASE_URL = 'https://chromebookunlocked.github.io';
+const { SITE_URL: BASE_URL } = require('./constants');
 const SITE_NAME = 'Chromebook Unlocked Games';
 const LOGO_URL = `${BASE_URL}/assets/logo.webp`;
 const OG_IMAGE_URL = `${BASE_URL}/assets/og-image.png`;

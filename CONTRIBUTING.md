@@ -120,7 +120,7 @@ Then open a pull request on GitHub with:
 
 ### Before Reporting
 
-1. Search existing [issues](https://github.com/chromebookunlocked/chromebookunlocked.github.io/issues)
+1. Search existing [issues](https://github.com/chromebook-unlocked/chromebook-unlocked.github.io/issues)
 2. Test on latest version
 3. Check browser console for errors
 
@@ -158,8 +158,8 @@ If applicable
 
 ```bash
 # Clone repository
-git clone https://github.com/chromebookunlocked/chromebookunlocked.github.io.git
-cd chromebookunlocked.github.io
+git clone https://github.com/chromebook-unlocked/chromebook-unlocked.github.io.git
+cd chromebook-unlocked.github.io
 
 # Install dev dependencies (optional, for linting)
 npm install
@@ -226,7 +226,7 @@ Longer description if needed explaining:
 ## 🏗️ Project Structure
 
 ```
-chromebookunlocked.github.io/
+chromebook-unlocked.github.io/
 ├── data/              # Game metadata (JSON)
 ├── games/             # Game files
 ├── scripts/           # Build and utility scripts
@@ -316,9 +316,9 @@ This project is licensed under MIT. By contributing, you agree that your contrib
 
 ## ❓ Questions?
 
-- **General questions**: Open a [Discussion](https://github.com/chromebookunlocked/chromebookunlocked.github.io/discussions)
-- **Bug reports**: Open an [Issue](https://github.com/chromebookunlocked/chromebookunlocked.github.io/issues)
-- **Feature requests**: Open an [Issue](https://github.com/chromebookunlocked/chromebookunlocked.github.io/issues) with "Feature Request" label
+- **General questions**: Open a [Discussion](https://github.com/chromebook-unlocked/chromebook-unlocked.github.io/discussions)
+- **Bug reports**: Open an [Issue](https://github.com/chromebook-unlocked/chromebook-unlocked.github.io/issues)
+- **Feature requests**: Open an [Issue](https://github.com/chromebook-unlocked/chromebook-unlocked.github.io/issues) with "Feature Request" label
 
 ---
 
