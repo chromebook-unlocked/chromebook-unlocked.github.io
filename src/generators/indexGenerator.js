@@ -164,6 +164,9 @@ function generateIndexHTML(games, categories, mainStyles, clientJS, gamesDir = '
 <head>
   ${generateGoogleTag()}
 
+  <!-- Google Search Console ownership verification -->
+  <meta name="google-site-verification" content="YordY77f181Ui7lXXmYqH8Ah3AYutRSXUkwOj9JHz7I" />
+
   ${metaTags}
 
   <!-- Optimize Google Fonts loading -->
