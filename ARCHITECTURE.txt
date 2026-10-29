@@ -17,7 +17,7 @@ LAST REFACTORED: November 2024
 DIRECTORY STRUCTURE
 ================================================================================
 
-chromebookunlocked.github.io/
+chromebook-unlocked.github.io/
 │
 ├── generate.js                    # Main build orchestrator (89 lines)
 ├── generate.js.backup             # Original monolithic version (2,824 lines)
@@ -603,7 +603,7 @@ SITEMAP STRUCTURE:
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Homepage -->
     <url>
-      <loc>https://chromebookunlocked.github.io/</loc>
+      <loc>https://chromebook-unlocked.github.io/</loc>
       <lastmod>2024-11-17</lastmod>
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
@@ -611,14 +611,14 @@ SITEMAP STRUCTURE:
 
     <!-- DMCA Page -->
     <url>
-      <loc>https://chromebookunlocked.github.io/dmca.html</loc>
+      <loc>https://chromebook-unlocked.github.io/dmca.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.3</priority>
     </url>
 
     <!-- Game Pages -->
     <url>
-      <loc>https://chromebookunlocked.github.io/Slope.html</loc>
+      <loc>https://chromebook-unlocked.github.io/Slope.html</loc>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
@@ -1059,8 +1059,8 @@ COMMON ISSUES:
 CONTACT & SUPPORT
 ================================================================================
 
-REPOSITORY: https://github.com/chromebookunlocked/chromebookunlocked.github.io
-ISSUES: https://github.com/chromebookunlocked/chromebookunlocked.github.io/issues
+REPOSITORY: https://github.com/chromebook-unlocked/chromebook-unlocked.github.io
+ISSUES: https://github.com/chromebook-unlocked/chromebook-unlocked.github.io/issues
 LICENSE: MIT
 
 

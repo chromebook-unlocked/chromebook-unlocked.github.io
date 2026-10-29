@@ -13,14 +13,25 @@
   <meta name="robots" content="noindex,nofollow" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="author" content="TinyDobbins" />
-  <base href="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/stick-defenders/">
+  <base href="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/stick-defenders/">
   <meta name="description" content="Stick Merge Defense HTML5 game" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
   <link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8" />
-  <script src="poki-sdk.js"></script>
+  <script>
+/* Ad SDK removed: no-op stand-in so the game starts without ads. */
+window.PokiSDK = new Proxy({}, { get: function (t, k) {
+  if (typeof k !== 'string' || k === 'then') return undefined;
+  if (k === 'rewardedBreak') return function () { return Promise.resolve(false); };
+  if (k === 'isAdBlocked') return function () { return false; };
+  if (k === 'getURLParam') return function () { return ''; };
+  if (k === 'getLanguage') return function () { return 'en'; };
+  if (k === 'shareableURL') return function () { return Promise.resolve(location.href); };
+  return function () { return Promise.resolve(); };
+} });
+</script>
 
   <script src="js/webfont.js"></script>
   <script src="js/phaser.min.js"></script>

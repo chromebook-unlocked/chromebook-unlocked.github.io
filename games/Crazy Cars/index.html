@@ -14,7 +14,18 @@
   <link rel="manifest" href="manifest.json">
   <style></style>
   <title>Crazy Cars! Unblocked</title>
-  <script src="patch/poki-sdk.js"></script>
+  <script>
+/* Ad SDK removed: no-op stand-in so the game starts without ads. */
+window.PokiSDK = new Proxy({}, { get: function (t, k) {
+  if (typeof k !== 'string' || k === 'then') return undefined;
+  if (k === 'rewardedBreak') return function () { return Promise.resolve(false); };
+  if (k === 'isAdBlocked') return function () { return false; };
+  if (k === 'getURLParam') return function () { return ''; };
+  if (k === 'getLanguage') return function () { return 'en'; };
+  if (k === 'shareableURL') return function () { return Promise.resolve(location.href); };
+  return function () { return Promise.resolve(); };
+} });
+</script>
   <script src="playcanvas-stable.min.js"></script>
   <script src="settings__.js"></script>
 </head>

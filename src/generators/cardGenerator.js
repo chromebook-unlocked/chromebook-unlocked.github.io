@@ -1,7 +1,6 @@
 const { getThumbPath } = require("../utils/assetManager");
 const { escapeHtml, escapeHtmlAttr } = require("../utils/htmlEscape");
 const { EAGER_LOAD_CARDS } = require("../utils/constants");
-const { generateHorizontalAd: providerHorizontalAd } = require("../utils/adProviders");
 
 /**
  * Generate HTML for a single game card
@@ -59,15 +58,7 @@ function generateSidebar(categories) {
     .join('\n');
 }
 
-/**
- * Generate HTML for a full-width AdSense horizontal ad row.
- */
-function generateHorizontalAd(adIndex, adsEnabled = true) {
-  return providerHorizontalAd(adIndex, adsEnabled);
-}
-
 module.exports = {
   generateGameCard,
-  generateSidebar,
-  generateHorizontalAd
+  generateSidebar
 };

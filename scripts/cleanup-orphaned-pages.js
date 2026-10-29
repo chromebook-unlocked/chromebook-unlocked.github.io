@@ -22,8 +22,7 @@ function getGameHTMLFiles() {
   const specialFiles = [
     'index.html',
     'index.template.html',
-    'dmca.html',
-    'google0d95473435a7c986.html'
+    'dmca.html'
   ];
 
   return files.filter(f => {

@@ -10,7 +10,7 @@
 
 <head>
   <meta charset="utf-8">
-  <base href="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/bouncy-basketbal/">
+  <base href="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/bouncy-basketbal/">
   <meta name="robots" content="noindex,nofollow" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Bouncy Basketball </title>
@@ -39,8 +39,32 @@
 </head>
 
 <body>
-  <script src="master-loader.js"></script>
-  <!-- <script src="https://game-cdn.poki.com/loaders/v2/master-loader.js"></script> -->
+  <script>
+/* Ad SDK removed: no-op stand-in so the game starts without ads. */
+window.PokiSDK = new Proxy({}, { get: function (t, k) {
+  if (typeof k !== 'string' || k === 'then') return undefined;
+  if (k === 'rewardedBreak') return function () { return Promise.resolve(false); };
+  if (k === 'isAdBlocked') return function () { return false; };
+  if (k === 'getURLParam') return function () { return ''; };
+  if (k === 'getLanguage') return function () { return 'en'; };
+  if (k === 'shareableURL') return function () { return Promise.resolve(location.href); };
+  return function () { return Promise.resolve(); };
+} });
+</script>
+<script>
+(function () {
+  var loaders = { unity: 'unity.js', 'unity-beta': 'unity-beta.js', 'unity-2020': 'unity-2020.js' };
+  if (!window.config) throw Error('window.config not found');
+  var loader = loaders[window.config.loader];
+  if (!loader) throw Error('Loader "' + window.config.loader + '" not found');
+  if (!window.config.unityWebglLoaderUrl) {
+    window.config.unityWebglLoaderUrl = './UnityLoader.2019.2.js';
+  }
+  var s = document.createElement('script');
+  s.src = loader;
+  document.body.appendChild(s);
+})();
+</script>
 
 
 </body>

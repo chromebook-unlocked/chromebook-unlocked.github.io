@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { getThumbPath } = require("../utils/assetManager");
+const { SITE_URL } = require("../utils/constants");
 
 /**
  * Generate XML sitemap with image sitemap support for SEO
@@ -10,7 +11,7 @@ const { getThumbPath } = require("../utils/assetManager");
  */
 function generateSitemap(games, outputDir, gamesDir = './games') {
   const today = new Date().toISOString().split('T')[0];
-  const baseUrl = 'https://chromebookunlocked.github.io';
+  const baseUrl = SITE_URL;
 
   // XML sitemap with image namespace for rich results
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>

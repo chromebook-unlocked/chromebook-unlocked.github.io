@@ -1,50 +1,3 @@
-/* Header AdSense banner. Sits between site header
-   and main content. Reserves a fixed-ish min-height so layout doesn't jump
-   when the ad loads. */
-.header-banner-ad {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90px;
-  padding: 8px 0;
-}
-.header-banner-ad > ins.adsbygoogle {
-  width: 100%;
-  max-width: 970px;
-  margin: 0 auto;
-}
-@media (max-width: 768px) {
-  .header-banner-ad {
-    min-height: 50px;
-  }
-}
-@media (max-height: 520px) and (orientation: landscape) and (max-width: 950px) {
-  .header-banner-ad {
-    display: none;
-  }
-}
-
-/* Bottom leaderboard ad sits inline above the footer. */
-.bottom-leaderboard-ad {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90px;
-  padding: 16px 0;
-}
-.bottom-leaderboard-ad > ins.adsbygoogle {
-  width: 100%;
-  max-width: 970px;
-  margin: 0 auto;
-}
-@media (max-width: 768px) {
-  .bottom-leaderboard-ad {
-    min-height: 50px;
-  }
-}
-
 /* Fallback font with size-adjust to minimize CLS when Orbitron loads */
 @font-face {
   font-family: 'Orbitron Fallback';
@@ -1017,55 +970,6 @@ button:active {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-/* Horizontal Ad Row - Full-width ad between game rows.
-   min-height matches the typical 300x250 medium rectangle so the row
-   reserves the right amount of space (minimal CLS, minimal whitespace).
-   The row will grow naturally for larger ads (336x280, 728x90 etc.). */
-.horizontal-ad-row {
-  grid-column: 1 / -1;
-  width: 100%;
-  min-height: 250px;
-  padding: 12px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.horizontal-ad-row > ins.adsbygoogle {
-  display: block !important;
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* AdSense sets data-ad-status after its auction. Collapse the whole grid row
-   only when Google explicitly reports no fill, so an empty unit does not
-   leave the 24px strip created by this row's vertical padding. */
-ins.adsbygoogle[data-ad-status="unfilled"] {
-  display: none !important;
-}
-
-.horizontal-ad-row:has(> ins.adsbygoogle[data-ad-status="unfilled"]) {
-  display: none;
-  min-height: 0;
-  padding: 0;
-}
-
-@media (max-width: 768px) {
-  .horizontal-ad-row {
-    /* Mobile in-content fill is typically 300x250 — reserving less caused
-       a 150px+ layout jump under the user's thumb when the ad rendered. */
-    min-height: 250px;
-  }
-}
-
-/* Ensure horizontal ad iframes are always visible */
-.horizontal-ad-row iframe {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
 }
 
 /* Loading spinner for infinite scroll */

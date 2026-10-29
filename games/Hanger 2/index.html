@@ -84,7 +84,7 @@ if (_params['exp_rpc_js'] != 1) {
   gadgets.rpc.setRelayUrl('..', url, true);
 }
 /* mp-end */
-</script></head><body dir="ltr"><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MENBM6GSNY"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MENBM6GSNY")</script><script>
+</script></head><body dir="ltr"><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[]</script><script>
     window["GD_OPTIONS"] = {
         "gameId": "7c55e325cfa441e08416e610253e02c3",
         "onEvent": function(event) {
@@ -107,14 +107,7 @@ if (_params['exp_rpc_js'] != 1) {
             }
         },
     };
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src ='https://63547061-480239364844120796.preview.editmysite.com/uploads/b/12311014-374158638346062739/files/main.min.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'gamedistribution-jssdk'));
+    window.gdsdk = window.gdsdk || { showAd: function () { return Promise.resolve(); }, preloadAd: function () { return Promise.resolve(); }, cancelAd: function () { return Promise.resolve(); } };
 </script>
 
 
