@@ -44,7 +44,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: url('https://cdn.jsdelivr.net/gh/gru6nny/ohd@7f5d35f798453258384eefb31fc6ee3227b2fd75/background.png') no-repeat center center fixed;
+            background: url('https://cdn.jsdelivr.net/gh/gru6nny/ohd@main/background.png') no-repeat center center fixed;
             background-size: cover;
         }
         #unity-container {
@@ -184,7 +184,7 @@
             }
         }
 
-        var buildUrl = "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7f5d35f798453258384eefb31fc6ee3227b2fd75/Build";
+        var buildUrl = "https://cdn.jsdelivr.net/gh/gru6nny/ohd@main/Build";
         var loaderUrl = buildUrl + "/Granny.loader.js";
 
         async function initializeGame() {
@@ -199,7 +199,7 @@
                     dataUrl: dataBlobUrl,
                     frameworkUrl: buildUrl + "/Granny.framework.js",
                     codeUrl: wasmBlobUrl,
-                    streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7f5d35f798453258384eefb31fc6ee3227b2fd75/StreamingAssets",
+                    streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/gru6nny/ohd@main/StreamingAssets",
                     companyName: "Anastasia Kazantseva",
                     productName: "Granny",
                     productVersion: "1.0",

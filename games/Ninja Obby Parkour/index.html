@@ -16,7 +16,7 @@
     <style>
         html,
         body {
-            background-image: url("https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/Build.jpg");
+            background-image: url("https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/Build.jpg");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -109,18 +109,18 @@
 
 
 
-   <img id="orientation-image" src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/TemplateData/Orientation/orientation.png" alt="Orientation">
+   <img id="orientation-image" src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/TemplateData/Orientation/orientation.png" alt="Orientation">
     <div id="orientation-warning">
         <div>Please rotate your device to the correct mode.</div>
        
     </div>
     <div id="gameContainer" style="width: 663px; height: 372px; top: 45px; left: 0px;">
-        <img src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/TemplateData/logo.png" class="centered">
+        <img src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/TemplateData/logo.png" class="centered">
         <div class="loadingOut">
             <div class="progress-bar" id="progress-bar" style="background: linear-gradient(to right, white, white 100%, transparent 100%, transparent); display: none;"></div>
         </div>
         <canvas id="unity-canvas" data-pixel-art="false" style="width: 663px; height: 372px; cursor: default;" width="663" height="463"></canvas>
-        <script src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.loader.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.loader.js"></script>
         <script>
     var canvas = document.querySelector("#unity-canvas");
     var progressBar = document.querySelector("#progress-bar");
@@ -129,8 +129,8 @@
     var orientationImage = document.querySelector("#orientation-image");
     var config = {
         // ❌ Burada dataUrl kaldırıldı, çünkü varsayılan dosyayı çağırmasını istemiyoruz
-        frameworkUrl: "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.framework.js.unityweb",
-        codeUrl: "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.wasm.unityweb",
+        frameworkUrl: "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.framework.js.unityweb",
+        codeUrl: "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "GameVGames",
         productName: "Ninja Obby Parkour",
@@ -151,9 +151,9 @@
     /* ⬇️ Burası senin ekleyeceğin yeni kısım */
     (async () => {
         const partUrls = [
-            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part000",
-            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part001",
-            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@9cf433220236bb0471ab3a68ec8fe3e0a2799e36/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part002"
+            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part000",
+            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part001",
+            "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/664x-main/Build/NinjaObbyParkourV3_H5.data.unityweb.part002"
         ];
 
         console.log("🔄 Unity .data parçaları indiriliyor...");

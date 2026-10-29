@@ -28,7 +28,7 @@
 <body>
   <canvas id="canvas"></canvas>
 
-  <script src="https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/playgama-bridge.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/netclassroom/dox@main/playgama-bridge.js"></script>
 
   <script>
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -87,13 +87,13 @@
 
         let unityLoader = document.createElement("script");
         unityLoader.src =
-          "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.loader.js";
+          "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.loader.js";
 
         unityLoader.onload = () => {
           const wasmParts = [
-            "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.wasm.br.part1",
-            "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.wasm.br.part2",
-            "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.wasm.br.part3",
+            "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.wasm.br.part1",
+            "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.wasm.br.part2",
+            "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.wasm.br.part3",
           ];
 
           async function mergeWasmParts() {
@@ -124,12 +124,12 @@
                 canvas,
                 {
                   dataUrl:
-                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.data.br",
+                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.data.br",
                   frameworkUrl:
-                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/Build/ObbyCarts.framework.js",
+                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/Build/ObbyCarts.framework.js",
                   codeUrl: mergedUrl,
                   streamingAssetsUrl:
-                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@b5f119c1652382f099e2e6fdf22b96c5dbff6ebf/StreamingAssets",
+                    "https://cdn.jsdelivr.net/gh/netclassroom/dox@main/StreamingAssets",
                   companyName: "MaxDigitArt",
                   productName: "Cart Ride Obby",
                   productVersion: "1.0.10",
