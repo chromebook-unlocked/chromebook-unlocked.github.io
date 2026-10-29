@@ -1,6 +1,19 @@
 const fs = require("fs");
 const path = require("path");
 const { DEFAULT_THUMBNAILS } = require("./constants");
+const { detectTechnology } = require("./gameTech");
+
+/**
+ * Normalize the optional "controls" field: [{ "keys": ["W", "A"], "action": "Move" }].
+ * Keys are alternatives unless "combo": true, meaning they are pressed together.
+ * Only verified controls belong here; malformed entries are dropped.
+ */
+function normalizeControls(controls) {
+  if (!Array.isArray(controls)) return [];
+  return controls
+    .filter(c => c && Array.isArray(c.keys) && c.keys.length && typeof c.action === 'string' && c.action.trim())
+    .map(c => ({ keys: c.keys.map(k => String(k).trim()).filter(Boolean), action: c.action.trim(), combo: c.combo === true }));
+}
 
 /**
  * Load and validate games from JSON files
@@ -101,7 +114,9 @@ function loadGames(dataDir, gamesDir) {
           thumbs: json.thumbs && json.thumbs.length ? json.thumbs : DEFAULT_THUMBNAILS,
           createdAt: createdAt, // ISO date string for when game was added
           priority: priority, // Priority value for sorting (higher = first)
-          description: description // Custom game description (empty string = auto-generate)
+          description: description, // Custom game description (empty string = auto-generate)
+          controls: normalizeControls(json.controls), // Verified controls only (may be empty)
+          technology: detectTechnology(gamesDir, folder) // Engine detected from the game's own files
         };
       } catch (error) {
         console.error(`❌ Error processing ${f}: ${error.message}`);

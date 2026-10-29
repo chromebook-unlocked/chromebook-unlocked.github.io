@@ -237,8 +237,9 @@ header {
   flex: 1;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
+  align-items: flex-start;
   gap: var(--spacing-sm);
   padding: calc(clamp(48px, 6vw, 64px) + 0.5rem) var(--spacing-sm) var(--spacing-xs);
   position: relative;
@@ -255,15 +256,24 @@ header {
   max-width: 1500px;
   max-height: 82vh;
 }
-/* Leave room for the fixed-width pillars beside the game */
-@media (min-width: 1280px) {
+/* Wide screens: the info panel sits beside the game. The game keeps the rest
+   of the row (minus panel, gap and side padding) without losing 16:9. */
+@media (min-width: 1100px) {
+  .game-container {
+    flex-wrap: nowrap;
+    --panel-w: 300px;
+  }
   .game-frame-wrapper {
-    width: min(calc(100vw - 400px), calc(78vh * 16 / 9));
+    width: min(calc(100vw - var(--panel-w) - 3rem), calc(78vh * 16 / 9));
+  }
+  .game-container .game-info-panel {
+    flex: 0 0 var(--panel-w);
+    width: var(--panel-w);
   }
 }
 @media (min-width: 1600px) {
-  .game-frame-wrapper {
-    width: min(calc(100vw - 680px), calc(78vh * 16 / 9));
+  .game-container {
+    --panel-w: 340px;
   }
 }
 .game-frame-wrapper {
@@ -480,41 +490,201 @@ header {
 }
 
 /* ============================================================================
-   CATEGORY TAGS
+   GAME INFO PANEL - beside the game on wide screens, below it otherwise
 ============================================================================ */
 
-.category-tags-section {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-sm);
+.game-info-panel {
+  width: min(85vw, calc(78vh * 16 / 9));
+  max-width: 1500px;
+  padding: 1.25rem 1.35rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  color: var(--text-primary);
 }
 
-.category-tags {
+.info-breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xs);
-  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.category-tag {
-  padding: var(--spacing-xs) var(--spacing-md);
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  color: var(--text-secondary);
+.info-breadcrumb a {
+  color: var(--primary-light);
   text-decoration: none;
+}
+
+.info-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.crumb-sep {
+  color: var(--text-muted);
+}
+
+.info-title {
+  margin: 0.55rem 0 0.9rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.info-meta {
+  margin: 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-meta > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.3rem 0;
+}
+
+.info-meta dt,
+.info-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.info-meta dd {
+  margin: 0;
   font-size: 0.9rem;
   font-weight: 600;
-  transition: transform .2s ease, background .2s ease;
+  text-align: right;
 }
 
-.category-tag:hover {
-  background: var(--primary-color);
-  color: var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--shadow-color);
+.info-heading {
+  margin: 1rem 0 0.6rem;
+}
+
+.info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.info-tag {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.info-tag:hover {
   border-color: var(--primary-color);
+  background: rgba(255, 102, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.control-list,
+.play-tips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.control-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.control-list li:last-child {
+  border-bottom: 0;
+}
+
+.control-keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.control-action {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.key-plus {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.game-info-panel kbd {
+  display: inline-block;
+  min-width: 1.9em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom-width: 2px;
+  font: 600 0.78rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.play-tips li {
+  position: relative;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.play-tips li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.8rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+}
+
+/* Tablet: panel sits below the game, sections in two columns */
+@media (min-width: 600px) and (max-width: 1099px) {
+  .game-info-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "crumb crumb"
+      "title title"
+      "meta  play"
+      "tags  play";
+    column-gap: 1.75rem;
+    align-content: start;
+  }
+  .info-breadcrumb { grid-area: crumb; }
+  .info-title { grid-area: title; }
+  .info-meta { grid-area: meta; align-self: start; }
+  .game-info-panel > .info-section:nth-of-type(1) { grid-area: tags; }
+  .game-info-panel > .info-section:nth-of-type(2) { grid-area: play; }
+  .game-info-panel > .info-section:nth-of-type(2) > .info-heading:first-child { margin-top: 0; }
 }
 /* ============================================================================
    GAME INFO SECTION (SEO/Description/Keywords)
@@ -1149,9 +1319,11 @@ body.game-is-expanded {
     padding: var(--spacing-sm) var(--spacing-md);
   }
 
-  .category-tag {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+  .game-info-panel {
+    width: min(100%, 760px);
+    max-width: calc(100vw - 16px);
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius-lg);
   }
 
   footer {
@@ -1329,7 +1501,8 @@ body.game-is-expanded {
 .icon-btn:focus-visible,
 .play-btn:focus-visible,
 .show-more-btn:focus-visible,
-.category-tag:focus-visible,
+.info-tag:focus-visible,
+.info-breadcrumb a:focus-visible,
 .game-card:focus-visible,
 .more-games-hint:focus-visible {
   outline: 2px solid var(--primary-color);
@@ -1429,6 +1602,27 @@ body.game-is-expanded {
           </button>
         </div>
       </div>
+      <aside class="game-info-panel" aria-label="About Hungry Lamu">
+      <nav class="info-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep" aria-hidden="true">›</span><a href="/#/category/Horror">Horror</a></nav>
+      <h2 class="info-title">Hungry Lamu</h2>
+      <dl class="info-meta">
+        <div><dt>Technology</dt><dd>Unity WebGL</dd></div>
+        <div><dt>Platform</dt><dd>Web browser</dd></div>
+      </dl>
+      <div class="info-section">
+        <h3 class="info-heading">Tags</h3>
+        <div class="info-tags"><a href="/#/category/Horror" class="info-tag" title="More Horror games">Horror</a><a href="/#/category/Psychological" class="info-tag" title="More Psychological games">Psychological</a></div>
+      </div>
+      <div class="info-section">
+
+        <h3 class="info-heading">Playing tips</h3>
+        <ul class="play-tips">
+          <li>Press <strong>Play</strong>, then click inside the game so it receives your keyboard input.</li>
+          <li>While the game is running, arrow keys and <kbd>Space</kbd> control the game instead of scrolling the page.</li>
+          <li>Use <strong>Fullscreen</strong> for a larger view; press <kbd>Esc</kbd> to exit it.</li>
+        </ul>
+      </div>
+    </aside>
     </div>
   </main>
 
@@ -1657,13 +1851,6 @@ body.game-is-expanded {
     </a>
     </div>
   </section>
-
-  <!-- Category Tags (above About section) -->
-  <div class="category-tags-section">
-    <div class="category-tags" role="navigation" aria-label="Game Categories">
-      <a href="/#/category/Horror" class="category-tag" title="Play Free Horror Games Unblocked">Horror</a><a href="/#/category/Psychological" class="category-tag" title="Play Free Psychological Games Unblocked">Psychological</a>
-    </div>
-  </div>
 
   <!-- Enhanced SEO Section -->
   <section class="game-info-section" id="gameInfoSection" aria-label="About Hungry Lamu">

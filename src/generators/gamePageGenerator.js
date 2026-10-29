@@ -4,6 +4,55 @@ const { escapeHtml, escapeHtmlAttr } = require("../utils/htmlEscape");
 const { generateGoogleTag } = require("../utils/analytics");
 const { RECOMMENDED_GAMES_COUNT, MAX_RELATED_GAMES, GAME_FRAME_SANDBOX, SITE_HOST } = require("../utils/constants");
 
+const categoryHref = (cat) => `/#/category/${encodeURIComponent(cat)}`;
+
+/**
+ * Info panel beside the game. Every value comes from the game's data or files:
+ * categories, the engine detected in its index.html, and controls only when
+ * they have been verified (otherwise only site-wide playing tips are shown).
+ */
+function generateInfoPanel(game) {
+  const name = escapeHtml(game.name);
+  const primary = game.categories[0];
+  const breadcrumb = primary
+    ? `<a href="/">Home</a><span class="crumb-sep" aria-hidden="true">›</span><a href="${escapeHtmlAttr(categoryHref(primary))}">${escapeHtml(primary)}</a>`
+    : `<a href="/">Home</a>`;
+  const tags = game.categories
+    .map((cat) => `<a href="${escapeHtmlAttr(categoryHref(cat))}" class="info-tag" title="More ${escapeHtmlAttr(cat)} games">${escapeHtml(cat)}</a>`)
+    .join("");
+  const controls = game.controls.length
+    ? `<h3 class="info-heading">Controls</h3>
+        <ul class="control-list">
+          ${game.controls.map((c) => `<li>
+            <span class="control-keys">${c.keys.map((k) => `<kbd>${escapeHtml(k)}</kbd>`).join(c.combo ? '<span class="key-plus">+</span>' : "")}</span>
+            <span class="control-action">${escapeHtml(c.action)}</span>
+          </li>`).join("")}
+        </ul>`
+    : "";
+
+  return `<aside class="game-info-panel" aria-label="About ${escapeHtmlAttr(game.name)}">
+      <nav class="info-breadcrumb" aria-label="Breadcrumb">${breadcrumb}</nav>
+      <h2 class="info-title">${name}</h2>
+      <dl class="info-meta">
+        <div><dt>Technology</dt><dd>${escapeHtml(game.technology)}</dd></div>
+        <div><dt>Platform</dt><dd>Web browser</dd></div>
+      </dl>
+      <div class="info-section">
+        <h3 class="info-heading">Tags</h3>
+        <div class="info-tags">${tags}</div>
+      </div>
+      <div class="info-section">
+        ${controls}
+        <h3 class="info-heading">Playing tips</h3>
+        <ul class="play-tips">
+          <li>Press <strong>Play</strong>, then click inside the game so it receives your keyboard input.</li>
+          <li>While the game is running, arrow keys and <kbd>Space</kbd> control the game instead of scrolling the page.</li>
+          <li>Use <strong>Fullscreen</strong> for a larger view; press <kbd>Esc</kbd> to exit it.</li>
+        </ul>
+      </div>
+    </aside>`;
+}
+
 // Helper to escape JavaScript string for use in HTML script tags
 function escapeJs(str) {
   if (str == null) return '';
@@ -175,6 +224,7 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir) 
           </button>
         </div>
       </div>
+      ${generateInfoPanel(game)}
     </div>
   </main>
 
@@ -193,21 +243,6 @@ function generateGamePage(game, allGames, categories, gamePageStyles, gamesDir) 
       ${recommendedGamesHTML}
     </div>
   </section>
-
-  <!-- Category Tags (above About section) -->
-  <div class="category-tags-section">
-    <div class="category-tags" role="navigation" aria-label="Game Categories">
-      ${game.categories
-        .map(
-          (cat) => {
-            const escapedCat = escapeHtmlAttr(cat);
-            const escapedCatText = escapeHtml(cat);
-            return `<a href="/#/category/${encodeURIComponent(cat)}" class="category-tag" title="Play Free ${escapedCatText} Games Unblocked">${escapedCatText}</a>`;
-          }
-        )
-        .join("")}
-    </div>
-  </div>
 
   <!-- Enhanced SEO Section -->
   <section class="game-info-section" id="gameInfoSection" aria-label="About ${escapedGameNameAttr}">

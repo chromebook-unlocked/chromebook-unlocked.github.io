@@ -3,5 +3,48 @@
   "category": "Shooter, Action, Strategy",
   "createdAt": "1970-01-01T00:00:00.000Z",
   "description": "",
-  "displayName": "Super Cold"
+  "displayName": "Super Cold",
+  "controls": [
+    {
+      "keys": [
+        "W",
+        "A",
+        "S",
+        "D"
+      ],
+      "action": "Move"
+    },
+    {
+      "keys": [
+        "Left Click"
+      ],
+      "action": "Fire (click anywhere)"
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "action": "Fire"
+    },
+    {
+      "keys": [
+        "Shift",
+        "Left Click"
+      ],
+      "action": "Hotswitch to the bot you click",
+      "combo": true
+    },
+    {
+      "keys": [
+        "T"
+      ],
+      "action": "Restart instantly"
+    },
+    {
+      "keys": [
+        "Esc"
+      ],
+      "action": "Quit"
+    }
+  ]
 }
