@@ -473,6 +473,394 @@
   </script>
 
   <style>
+
+    @font-face {
+      font-family: 'Orbitron Fallback';
+      src: local('Arial Black'), local('Arial Bold'), local('Helvetica Bold');
+      size-adjust: 95%;
+      ascent-override: 100%;
+      descent-override: 20%;
+      line-gap-override: 0%;
+    }
+
+    :root {
+      --base-font: clamp(11px, 1vw, 16px);
+      --sidebar-width: clamp(40px, 4vw, 70px);
+      --accent: #ff66ff;
+      --accent-dark: #cc33ff;
+      --accent-light: #ff99ff;
+      --background-dark: #1c0033;
+      --card-bg: #4d0066;
+      --card-hover: #660099;
+      --font-main: 'Orbitron', 'Orbitron Fallback', 'Arial Black', sans-serif;
+      /* Reading font for long paragraphs. Set it to var(--font-main) to use Orbitron everywhere. */
+      --font-body: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --content-max-width: min(1400px, 95vw);
+      --header-height: 56px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      background: linear-gradient(135deg, #0d001a 0%, #1c0033 50%, #2d0052 100%);
+      font-family: var(--font-main);
+      color: #eee;
+      font-size: var(--base-font);
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); }
+    ::-webkit-scrollbar-thumb { background: rgba(102, 0, 153, 0.8); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(128, 0, 192, 0.9); }
+    * { scrollbar-width: thin; scrollbar-color: rgba(102, 0, 153, 0.8) rgba(0, 0, 0, 0.3); }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute; left: 0.5rem; top: -3rem; z-index: 3000;
+      background: var(--accent); color: #1c0033; padding: 0.5rem 0.9rem;
+      border-radius: 6px; font-weight: 700; text-decoration: none;
+    }
+    .skip-link:focus { top: 0.5rem; }
+
+    /* Sidebar */
+    #sidebar {
+      width: var(--sidebar-width);
+      background: rgba(13, 0, 26, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: fixed;
+      left: 0;
+      top: var(--header-height);
+      z-index: 999;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: none;
+    }
+    #sidebar::-webkit-scrollbar { width: 0; }
+    #sidebar:hover { width: 200px; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4); }
+    #sidebar ul { list-style: none; padding: 0.3rem 0; margin: 0; flex: 1; }
+    #sidebar li {
+      margin: 0.15rem 0.25rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      opacity: 0.9;
+      overflow: hidden;
+      transition: background .15s ease, border .15s ease;
+    }
+    #sidebar li a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.5rem;
+      color: #eee;
+      text-decoration: none;
+      font-family: var(--font-main);
+      font-weight: 600;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      transition: padding .2s ease;
+    }
+    #sidebar li .icon { font-size: 1.15rem; flex-shrink: 0; min-width: 1.4rem; text-align: center; }
+    #sidebar li .text { opacity: 0; max-width: 0; overflow: hidden; transition: opacity .2s ease, max-width .2s ease; }
+    #sidebar:hover li a { padding: 0.5rem 0.7rem; }
+    #sidebar:hover li .text { opacity: 1; max-width: 200px; }
+    #sidebar li:hover, #sidebar li:focus-within {
+      background: rgba(255, 102, 255, 0.15);
+      border: 1px solid rgba(255, 102, 255, 0.25);
+    }
+    #sidebar li a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+    /* Top header */
+    #topHeader {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1001;
+      height: var(--header-height);
+      background: rgba(13, 0, 26, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-right: 1.5rem;
+    }
+    .header-left {
+      height: 100%;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: clamp(8px, 1.5vw, 16px);
+    }
+    .brand { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 16px); text-decoration: none; }
+    .brand:hover { opacity: 0.9; }
+    .header-logo {
+      width: 36px; height: 36px; min-width: 36px; min-height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      padding: 2px;
+      box-shadow: 0 2px 10px rgba(255, 102, 255, 0.2);
+      object-fit: contain;
+    }
+    .site-name {
+      font-size: clamp(0.85rem, 2vw, 1.3rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light), #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+    .header-nav { display: flex; align-items: center; margin-right: auto; padding-left: 0.75rem; }
+    .header-nav-sep { color: rgba(255, 255, 255, 0.3); font-size: clamp(0.75rem, 1.2vw, 0.9rem); padding: 0 0.15rem; user-select: none; }
+    .header-nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+      font-weight: 600;
+      padding: 0.3em 0.5em;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    a.header-nav-link:hover { color: var(--accent); }
+    .header-nav-link.current { color: #fff; }
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--accent-light);
+      padding: 0.25rem 0.5rem;
+      margin-left: 0.75rem;
+    }
+
+    /* Content area */
+    #content {
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin-left: var(--sidebar-width);
+      margin-top: var(--header-height);
+      width: calc(100% - var(--sidebar-width));
+      height: calc(100vh - var(--header-height));
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    .content-wrapper { padding: 0 1.5rem 1.5rem 1.5rem; }
+
+    /* Article */
+    .article {
+      max-width: 960px;
+      margin: 1.5rem auto 2rem;
+      padding: 1.25rem clamp(0.75rem, 2vw, 1.5rem);
+      color: #d7ccdf;
+      font-family: var(--font-body);
+      font-size: clamp(15px, 1.15vw, 17px);
+      line-height: 1.7;
+    }
+    .article h1, .article h2, .article h3 { font-family: var(--font-main); }
+    .article h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+      line-height: 1.25;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light), #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .article h2 {
+      margin: 2.4rem 0 0.9rem;
+      padding-bottom: 0.4rem;
+      color: #f2e9f6;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      line-height: 1.3;
+      border-bottom: 1px solid rgba(255, 102, 255, 0.25);
+      scroll-margin-top: 1rem;
+    }
+    .article h3 {
+      margin: 1.6rem 0 0.5rem;
+      color: var(--accent-light);
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.35;
+    }
+    .article p { max-width: 75ch; margin: 0 0 1rem; }
+    .article ul, .article ol { max-width: 75ch; margin: 0 0 1.1rem; padding-left: 1.4rem; }
+    .article li { margin-bottom: 0.5rem; }
+    .article li::marker { color: var(--accent); }
+    .article strong { color: #f2e9f6; }
+    .article a { color: var(--accent-light); text-underline-offset: 3px; }
+    .article a:hover, .article a:focus-visible { color: #fff; }
+    .article a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+    .byline {
+      margin: 0 0 1.25rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9em;
+    }
+
+    .answer-box, .takeaways, .toc {
+      max-width: 75ch;
+      margin: 1.25rem 0;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, var(--card-bg), #5a0077);
+      border: 2px solid rgba(255, 102, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .answer-box p { margin: 0 0 0.75rem; color: #f2e9f6; }
+    .answer-box p:last-child { margin-bottom: 0; }
+    .takeaways h2, .toc h2 { margin: 0 0 0.75rem; padding: 0; border: 0; }
+    .takeaways ul, .toc ol { margin-bottom: 0; }
+    .toc ol { columns: 2 260px; column-gap: 2rem; }
+    .toc li { break-inside: avoid; }
+
+    .table-wrap { max-width: 75ch; overflow-x: auto; margin: 1rem 0 1.25rem; border-radius: 12px; border: 1px solid rgba(255, 102, 255, 0.25); }
+    .article table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+    .article th, .article td { padding: 0.65rem 0.9rem; text-align: left; vertical-align: top; border-bottom: 1px solid rgba(255, 102, 255, 0.15); }
+    .article th { background: var(--card-bg); color: #f2e9f6; font-family: var(--font-main); font-size: 0.85em; }
+    .article tbody tr:last-child td { border-bottom: 0; }
+    .article tbody tr:hover { background: rgba(255, 102, 255, 0.07); }
+
+    .badge {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 102, 255, 0.15);
+      border: 1px solid rgba(255, 102, 255, 0.3);
+      color: #f2e9f6;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      vertical-align: middle;
+      -webkit-text-fill-color: #f2e9f6;
+    }
+
+    .article .game-list { list-style: none; padding-left: 0; counter-reset: game; }
+    .game-list li {
+      counter-increment: game;
+      position: relative;
+      margin-bottom: 0.85rem;
+      padding: 0.9rem 1rem 0.9rem 3.4rem;
+      background: rgba(77, 0, 102, 0.45);
+      border: 1px solid rgba(255, 102, 255, 0.2);
+      border-radius: 12px;
+    }
+    .game-list li::before {
+      content: counter(game);
+      position: absolute;
+      left: 0.9rem; top: 0.85rem;
+      width: 1.7rem; height: 1.7rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: #1c0033;
+      font-family: var(--font-main);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .game-list li:hover { border-color: var(--accent); background: rgba(102, 0, 153, 0.45); }
+    .game-list .tags { display: block; margin-top: 0.35rem; color: rgba(255, 255, 255, 0.6); font-size: 0.88em; }
+
+    .steps { padding-left: 1.6rem; }
+
+    /* Footer (same as the site) */
+    #siteFooter {
+      background: linear-gradient(180deg, rgba(13, 0, 26, 0.98) 0%, rgba(8, 0, 18, 0.99) 100%);
+      border-top: 2px solid rgba(255, 102, 255, 0.3);
+      margin-top: 4rem;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-family: var(--font-main);
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
+    .footer-brand { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-align: center; }
+    .footer-brand h3 {
+      font-size: 1.2rem; font-weight: 700;
+      background: linear-gradient(135deg, #ff66ff, #ff99ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin: 0;
+    }
+    .footer-url {
+      font-family: 'Courier New', monospace;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 102, 255, 0.08);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 102, 255, 0.15);
+    }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; width: 100%; }
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+      font-family: var(--font-main);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      display: inline-block;
+    }
+    .footer-links a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #ff66ff, transparent);
+      transition: width 0.3s ease;
+    }
+    .footer-links a:hover { color: #ff66ff; transform: translateY(-2px); }
+    .footer-links a:hover::after { width: 100%; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center; }
+    .footer-bottom p { color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin: 0; opacity: 0.8; font-family: var(--font-main); font-weight: 300; letter-spacing: 0.5px; }
+
+    /* Small laptops and tablets: sidebar slides in from the left */
+    @media (max-width: 1024px) {
+      #content { margin-left: 0; width: 100%; }
+      #sidebar {
+        transform: translateX(-100%);
+        width: 220px;
+        z-index: 2000;
+        transition: transform .25s ease;
+      }
+      #navToggle:checked ~ #sidebar,
+      #sidebar:focus-within { transform: translateX(0); }
+      #sidebar li a { padding: 0.6rem 0.8rem; }
+      #sidebar li .text { opacity: 1; max-width: 200px; }
+      .menu-btn { display: block; }
+      .header-left { padding: 0 1rem 0 0.5rem; }
+    }
+    @media (max-width: 768px) {
+      .content-wrapper { padding: 0 0.75rem 1rem; }
+      .header-nav { display: none; }
+      .footer-links { gap: 1rem; }
+      #siteFooter { padding: 2rem 1rem; }
+    }
+    @media (max-width: 480px) {
+      #sidebar { width: 190px; }
+      .game-list li { padding-left: 3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #content { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+
+
+
+    
     /* Fallback font with size-adjust to minimize CLS when Orbitron loads */
 @font-face {
   font-family: 'Orbitron Fallback';
@@ -1813,10 +2201,266 @@ button:active {
       </details>
 
       <section class="site-guide" aria-labelledby="site-guide-title">
-        <h2 id="site-guide-title">Free browser games for Chromebook</h2>
-        <p>Browse puzzle, racing, sports and arcade games in the grid above. Each game card opens its own page on Chromebook Unlocked Games, with a direct GitHub.io link you can share.</p>
-        <p>Looking for games to play on a school Chromebook? Use the search box to find a title, or open the alphabetical directory above to browse all available games. Games launch in your browser without an app download.</p>
-      </section>
+<article class="article">
+
+<header>
+<h1>Unblocked Games: What They Are, How They Work, and the Best Ones to Play on a Chromebook</h1>
+<p class="byline">By the <a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games</a> team. Last updated: <time datetime="2026-11-10">November 10, 2026</time>.</p>
+</header>
+
+<div class="answer-box">
+<p><strong>Unblocked games are free browser games that people play on school or work networks that filter many websites.</strong> The word "unblocked" describes whether a site opens on a given network. It does not describe a special type of game. Because these games run inside a web browser, you do not need to install anything, which makes them a good fit for a Chromebook.</p>
+</div>
+
+<p><a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games</a> lists 186 browser games on one site, and every game has its own direct link. This guide explains what unblocked games are, why schools filter websites, how a school Chromebook decides which sites to open, and which games are worth trying first.</p>
+
+<section class="takeaways" aria-labelledby="key-takeaways">
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>Unblocked games run in a web browser, so they need no download or installation.</li>
+<li>Schools set their own filter rules, so a game site that opens on one network can stay blocked on another.</li>
+<li>The federal filtering rule (CIPA) covers harmful images, not games. Blocking games is a local school decision.</li>
+<li>Chromebook Unlocked Games lists 186 games across more than 45 categories.</li>
+<li>Follow your school's rules, and play only when your teacher or school policy allows it.</li>
+</ul>
+</section>
+
+<nav class="toc" aria-labelledby="toc-title">
+<h2 id="toc-title">In This Guide</h2>
+<ol>
+<li><a href="#what-are-unblocked-games">What Are Unblocked Games?</a></li>
+<li><a href="#why-schools-block-games">Why Do Schools Block Games?</a></li>
+<li><a href="#how-chromebooks-block-sites">How Do School Chromebooks Block Websites?</a></li>
+<li><a href="#why-browser-games-work">Why Do Browser Games Work on a Chromebook?</a></li>
+<li><a href="#about-the-site">What Is Chromebook Unlocked Games?</a></li>
+<li><a href="#top-categories">Top Unblocked Game Categories</a></li>
+<li><a href="#top-10-games">Top 10 Unblocked Games to Play</a></li>
+<li><a href="#how-to-play">How Do You Play Unblocked Games on a Chromebook?</a></li>
+<li><a href="#are-they-safe">Are Unblocked Games Safe?</a></li>
+<li><a href="#tips">Tips for a Better Game Session</a></li>
+<li><a href="#faq">Frequently Asked Questions</a></li>
+<li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="what-are-unblocked-games">What Are Unblocked Games?</h2>
+
+<p>Unblocked games are online games that load in a browser on networks with website filters, such as school Wi-Fi. Most of them are small, free games that start in a few seconds. They cover many types of play, including puzzles, racing, sports, and arcade challenges.</p>
+
+<p>Three points explain the term:</p>
+
+<ul>
+<li><strong>"Unblocked" describes access.</strong> A game is unblocked on your network when no filter rule stops its website from opening.</li>
+<li><strong>The game itself is ordinary.</strong> The same game can be blocked at one school and open at another.</li>
+<li><strong>Browser games need no setup.</strong> You open a page, press Play, and start. There is no installer and no app to find.</li>
+</ul>
+
+<p>No game site can promise to open on every network. Each school controls its own filter, and that filter can change at any time.</p>
+
+<h2 id="why-schools-block-games">Why Do Schools Block Games?</h2>
+
+<p>Schools filter websites for several reasons, and the law is only one of them. Understanding the reasons helps explain why game sites are often on the blocked list.</p>
+
+<h3>The Federal Rule: CIPA</h3>
+
+<p>The Children's Internet Protection Act (CIPA) became law on December 21, 2000. It applies to schools and libraries that receive E-Rate discounts for internet access or internal connections. These schools must certify that they have an internet safety policy and a filter that blocks images that are obscene, that show child pornography, or that are harmful to minors.</p>
+
+<p>CIPA does not mention games. A school or library may add broader rules of its own, but those extra rules are local choices and not federal requirements. In other words, when a school blocks a game site, the school made that decision.</p>
+
+<h3>Common Reasons Schools Give</h3>
+
+<ul>
+<li><strong>Focus on lessons.</strong> Schools want students to use class time for class work.</li>
+<li><strong>Network capacity.</strong> A school network serves many devices at once, and administrators manage what uses it.</li>
+<li><strong>Device and data safety.</strong> Schools block sites they do not know or cannot review, because some websites show harmful ads or links.</li>
+</ul>
+
+<h2 id="how-chromebooks-block-sites">How Do School Chromebooks Block Websites?</h2>
+
+<p>School Chromebooks are usually managed by an administrator through the Google Admin console. In that console, the administrator can set a URL blocklist and a URL allowlist for managed users and devices.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Setting</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>URL blocklist</td><td>Stops users from opening the listed websites.</td></tr>
+<tr><td>URL allowlist</td><td>Lets users open listed websites, even when a blocklist rule would stop them. The allowlist takes priority over the blocklist.</td></tr>
+<tr><td>Block everything except</td><td>Blocks all websites, then allows only a short approved list.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Google's documentation says administrators can block and allow up to 1,000 URLs with this setting. It also recommends a content-filtering web proxy or extension for stronger filtering. Many schools use a separate filtering service on top of these settings.</p>
+
+<p>This explains why results differ from school to school. Each administrator chooses what goes on the list, so a game site that opens in one district can stay blocked in another. Chromebook Unlocked Games cannot change your school's settings. If a site does not open, your school's filter is the cause, and your teacher or IT staff can tell you the policy.</p>
+
+<h2 id="why-browser-games-work">Why Do Browser Games Work on a Chromebook?</h2>
+
+<p>A Chromebook runs ChromeOS, and its main tool is the Chrome browser. Browser games fit that setup because they load from a web page and run inside the browser tab. You do not install a program, and you do not need extra storage for a game client.</p>
+
+<p>The games on Chromebook Unlocked Games use several browser technologies. The game pages we checked list HTML5 for Drive Mad, 2048, and Cookie Clicker, Unity WebGL for Slope, and GameMaker for Retro Bowl. All of them run in the browser without a download.</p>
+
+<h2 id="about-the-site">What Is Chromebook Unlocked Games?</h2>
+
+<p><a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games</a> is a browser game site at chromebook-unlocked.github.io. It lists free games for school Chromebooks and desktop browsers, and each game has its own page with a direct link. The facts below come from the site as of November 2026.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Feature</th><th>Details</th></tr>
+</thead>
+<tbody>
+<tr><td>Number of games</td><td>186 games, listed in an alphabetical directory</td></tr>
+<tr><td>Number of categories</td><td>More than 45, from Action and Arcade to Puzzle, Racing, and Sports</td></tr>
+<tr><td>How games open</td><td>In the browser, with no app download</td></tr>
+<tr><td>Finding games</td><td>Search box, category menu, Newly Added list, and Recently Played list</td></tr>
+<tr><td>Game pages</td><td>Each game has a direct link, a Fullscreen button, and short playing tips</td></tr>
+<tr><td>Site policies</td><td>Privacy Policy, Cookie Policy, Terms of Service, Contact, and DMCA pages</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="top-categories">Top Unblocked Game Categories</h2>
+
+<p>The category menu is the fastest way to find a type of game you like. Each category below links to its list on the site, and the game counts come from the site's own game data as of November 2026.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Arcade">Arcade</a> <span class="badge">33 games</span></h3>
+<p>Fast, replayable games that need no tutorial. Examples include <a href="https://chromebook-unlocked.github.io/Slope.html">Slope</a>, <a href="https://chromebook-unlocked.github.io/Block%20Blast.html">Block Blast</a>, and <a href="https://chromebook-unlocked.github.io/Bad%20Ice%20Cream%202.html">Bad Ice Cream 2</a>.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Puzzle">Puzzle</a> <span class="badge">23 games</span></h3>
+<p>Games built around planning and pattern spotting, such as <a href="https://chromebook-unlocked.github.io/2048.html">2048</a>, <a href="https://chromebook-unlocked.github.io/Cut%20the%20Rope.html">Cut the Rope</a>, and <a href="https://chromebook-unlocked.github.io/Little%20Alchemy%202.html">Little Alchemy 2</a>. This category suits players who want a slower pace.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Driving">Driving</a> <span class="badge">15 games</span></h3>
+<p>Games where you control a vehicle. <a href="https://chromebook-unlocked.github.io/Drive%20Mad.html">Drive Mad</a> mixes steering with problem solving, and <a href="https://chromebook-unlocked.github.io/Polytrack.html">Polytrack</a> adds racing.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Sports">Sports</a> <span class="badge">11 games</span></h3>
+<p>Simple versions of sports with short rules. <a href="https://chromebook-unlocked.github.io/Retro%20Bowl.html">Retro Bowl</a> is tagged Sports and Football, and it also appears under Retro and Mobile.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Clicker">Clicker</a> <span class="badge">9 games</span></h3>
+<p>Games where simple clicks earn points that you spend on upgrades. <a href="https://chromebook-unlocked.github.io/Cookie%20Clicker.html">Cookie Clicker</a> is the best-known example.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Physics">Physics</a> <span class="badge">8 games</span></h3>
+<p>Games where weight, speed, and balance change the result. <a href="https://chromebook-unlocked.github.io/Red%20Ball.html">Red Ball</a> and Drive Mad both carry this tag.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Idle">Idle</a> <span class="badge">7 games</span></h3>
+<p>Games that keep building progress with little input, such as Cookie Clicker and <a href="https://chromebook-unlocked.github.io/Tiny%20Fishing.html">Tiny Fishing</a>. They are easy to check between other tasks.</p>
+
+<h3><a href="https://chromebook-unlocked.github.io/#/category/Running">Running</a> <span class="badge">4 games</span></h3>
+<p>Games where your character keeps moving and you react to what appears ahead. Slope is tagged Running and Endless.</p>
+
+<p>The full menu also includes Action (39 games), Adventure, Casual, Racing, Shooter, Strategy, Platformer, <a href="https://chromebook-unlocked.github.io/#/category/2%20Player">2 Player</a> (10 games), Multiplayer, Horror, and many more. Open the <a href="https://chromebook-unlocked.github.io/">homepage</a> to see every category.</p>
+
+<h2 id="top-10-games">Top 10 Unblocked Games to Play</h2>
+
+<p>These ten games cover a range of styles, and each one has its own page on the site. The tags under each game come from the site's own game data.</p>
+
+<ol class="game-list">
+<li><strong><a href="https://chromebook-unlocked.github.io/Slope.html">Slope</a></strong> &mdash; A ball rolls down a steep track that keeps getting faster. You steer left and right to stay on the track and avoid obstacles.<span class="tags">Tags: Arcade, Running, Endless, Trending Games</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Drive%20Mad.html">Drive Mad</a></strong> &mdash; You drive a vehicle through obstacle-filled levels toward a finish point. The physics decide how the vehicle lands, so careful driving beats speed.<span class="tags">Tags: Driving, Physics, Puzzle</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Retro%20Bowl.html">Retro Bowl</a></strong> &mdash; A pixel-style football game where you run a team and play its offense. It runs on GameMaker.<span class="tags">Tags: Sports, Football, Retro, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/2048.html">2048</a></strong> &mdash; You slide numbered tiles on a grid. Two tiles with the same number merge into one tile with a higher number, and the goal is to reach 2048.<span class="tags">Tags: Puzzle, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Cookie%20Clicker.html">Cookie Clicker</a></strong> &mdash; You click a large cookie to earn cookies, then spend them on upgrades that bake more cookies for you.<span class="tags">Tags: Clicker, Idle, Trending Games, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Geometry%20Dash%20Lite.html">Geometry Dash Lite</a></strong> &mdash; A rhythm-based platformer where a square jumps over spikes and gaps in time with the music. One mistake sends you back to the start of the level.<span class="tags">Tags: Platformer, Rhythm, Trending Games, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Fireboy%20and%20Watergirl%201.html">Fireboy and Watergirl 1</a></strong> &mdash; Two characters, one made of fire and one made of water, work together to reach the exit of each level. Each character can cross hazards that would harm the other.<span class="tags">Tags: 2 Player, Platformer, Puzzle</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Cut%20the%20Rope.html">Cut the Rope</a></strong> &mdash; A physics puzzle where you cut ropes in the right order to drop candy into the mouth of a small green character. Timing and order matter more than speed.<span class="tags">Tags: Puzzle, Physics, Casual, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Little%20Alchemy%202.html">Little Alchemy 2</a></strong> &mdash; You start with four basic elements and combine them to make new items. Each new combination opens more choices, so the game rewards curiosity.<span class="tags">Tags: Casual, Puzzle, Sandbox, Mobile</span></li>
+<li><strong><a href="https://chromebook-unlocked.github.io/Tiny%20Fishing.html">Tiny Fishing</a></strong> &mdash; You cast a line, catch fish, sell them, and buy upgrades that let you fish deeper. Sessions are short, and progress builds each time you return.<span class="tags">Tags: Casual, Idle, Simulation, Mobile</span></li>
+</ol>
+
+<h2 id="how-to-play">How Do You Play Unblocked Games on a Chromebook?</h2>
+
+<p>Playing takes a few steps. The site's own playing tips cover the controls, and they apply to the game pages we checked.</p>
+
+<ol class="steps">
+<li><strong>Open the homepage.</strong> Go to <a href="https://chromebook-unlocked.github.io/">chromebook-unlocked.github.io</a> and let the page load.</li>
+<li><strong>Find a game.</strong> Use the search box, pick a category from the menu, or browse the alphabetical directory of all 186 games.</li>
+<li><strong>Open the game page.</strong> Each game has its own page and its own direct link.</li>
+<li><strong>Press Play.</strong> The game loads inside the page.</li>
+<li><strong>Click inside the game.</strong> This step lets the game receive your keyboard input.</li>
+<li><strong>Use the keyboard.</strong> The playing tips say that arrow keys and the Space bar control the game instead of scrolling the page.</li>
+<li><strong>Use Fullscreen if you want a bigger view.</strong> Press the Esc key to leave fullscreen.</li>
+</ol>
+
+<h2 id="are-they-safe">Are Unblocked Games Safe?</h2>
+
+<p>Browser games carry fewer risks than downloaded programs because nothing installs on your device. Chromebook Unlocked Games states that its games launch in the browser without an app download. The site also publishes a <a href="https://chromebook-unlocked.github.io/important-pages/privacy-policy.html">Privacy Policy</a>, a <a href="https://chromebook-unlocked.github.io/important-pages/cookie-policy.html">Cookie Policy</a>, <a href="https://chromebook-unlocked.github.io/important-pages/terms-of-service.html">Terms of Service</a>, a <a href="https://chromebook-unlocked.github.io/important-pages/contact.html">Contact page</a>, and a <a href="https://chromebook-unlocked.github.io/important-pages/dmca.html">DMCA page</a>, so you can see how the site handles data and copyright questions.</p>
+
+<p>Safe use still depends on your choices. These habits help on any game site:</p>
+
+<ul>
+<li><strong>Never download files from a game page.</strong> A browser game does not need a download.</li>
+<li><strong>Close pop-ups without clicking them.</strong> If a new tab opens that you did not expect, close it.</li>
+<li><strong>Do not enter personal details.</strong> A game does not need your name, address, or passwords.</li>
+<li><strong>Keep Chrome updated.</strong> Updates include security fixes.</li>
+<li><strong>Pick games that fit your age.</strong> The library includes categories such as Horror and Shooter, so parents and teachers may want to browse the categories first.</li>
+</ul>
+
+<h3>Follow Your School's Rules</h3>
+
+<p>A game that opens on your Chromebook may still break a school rule. Many schools allow games only at certain times or only with a teacher's permission. Check your school's acceptable use policy, and play during free time or when your teacher says it is fine. If a site is blocked, do not try to get around the filter. Ask your teacher or IT staff whether the site can be approved.</p>
+
+<h2 id="tips">Tips for a Better Game Session</h2>
+
+<ul>
+<li><strong>Close extra tabs.</strong> Fewer open tabs leave more memory for the game.</li>
+<li><strong>Click the game window first.</strong> If the arrow keys scroll the page, click inside the game and try again.</li>
+<li><strong>Use Fullscreen.</strong> A larger view makes small details easier to see.</li>
+<li><strong>Try the Newly Added list.</strong> It shows recent additions, so you can find games you have not played.</li>
+<li><strong>Use Recently Played.</strong> It helps you return to a game you liked.</li>
+<li><strong>Bookmark the homepage.</strong> A bookmark to <a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games</a> saves time when you want a short break.</li>
+</ul>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What are unblocked games?</h3>
+<p>Unblocked games are free browser games that people play on networks that filter many websites, such as school Wi-Fi. They run in a web browser, so they need no download or installation.</p>
+
+<h3>Are unblocked games free?</h3>
+<p>Yes. Chromebook Unlocked Games describes its library as free browser games, and you play each game on its page without installing an app.</p>
+
+<h3>Do unblocked games work on a Chromebook?</h3>
+<p>Yes. They run in the Chrome browser, and the game pages on this site list the platform as a web browser for Chromebook and desktop.</p>
+
+<h3>Do I need to download anything to play?</h3>
+<p>No. The site states that games launch in your browser without an app download.</p>
+
+<h3>Why is a game site blocked at my school?</h3>
+<p>Your school's filter rules block it. Schools set these rules locally, and the federal CIPA rule covers harmful images, not games. Your teacher or IT staff can explain the policy.</p>
+
+<h3>How many games does Chromebook Unlocked Games have?</h3>
+<p>The site lists 186 games across more than 45 categories as of November 2026. New games appear in the Newly Added list.</p>
+
+<h3>Which unblocked game is best for a short break?</h3>
+<p>Games with quick rounds suit a short break. Slope, 2048, and Tiny Fishing all start fast and are easy to stop and resume.</p>
+
+<h3>Which games can two people play together?</h3>
+<p>The site has a 2 Player category with 10 games. Fireboy and Watergirl 1 and Bad Ice Cream 2 both carry the 2 Player tag. Check each game page for its controls.</p>
+
+<h3>Why do the arrow keys not work in a game?</h3>
+<p>The game may not have your keyboard focus yet. Press Play, then click inside the game window. The arrow keys and Space bar then control the game instead of scrolling the page.</p>
+
+<h3>Are all the games suitable for children?</h3>
+<p>No. The library includes many types of games, including Horror and Shooter categories. Parents and teachers should review the categories and choose titles that suit the player's age.</p>
+
+<h3>How do I play in fullscreen?</h3>
+<p>Press the Fullscreen button on the game page. Press the Esc key to leave fullscreen.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>Unblocked games are browser games that open on networks with website filters, and Chromebooks run them well because they need no installation. Schools set their own filter rules, so access varies, and you should always follow your school's policy. When you have free time and permission to play, <a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games</a> gives you 186 games to choose from, sorted into more than 45 categories.</p>
+
+<p>Start with <a href="https://chromebook-unlocked.github.io/Slope.html">Slope</a> for a quick arcade round, <a href="https://chromebook-unlocked.github.io/2048.html">2048</a> for a calm puzzle, or <a href="https://chromebook-unlocked.github.io/Retro%20Bowl.html">Retro Bowl</a> for a football game. Visit <a href="https://chromebook-unlocked.github.io/">chromebook-unlocked.github.io</a> to browse the full list.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.fcc.gov/consumers/guides/childrens-internet-protection-act" target="_blank" rel="noopener noreferrer">Federal Communications Commission: Children's Internet Protection Act (CIPA)</a></li>
+<li><a href="https://support.google.com/chrome/a/answer/7532419" target="_blank" rel="noopener noreferrer">Google Chrome Enterprise Help: Allow or block access to websites</a></li>
+<li><a href="https://chromebook-unlocked.github.io/">Chromebook Unlocked Games homepage and game pages, reviewed November 2026</a></li>
+</ul>
+
+</article>      </section>
 
       <footer id="siteFooter">
         <div class="footer-content">
